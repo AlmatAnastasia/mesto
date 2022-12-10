@@ -44,3 +44,15 @@
 /* подключаем стили блока footer */
 @import url("../blocks/footer/footer.css");
 @import url("../blocks/footer/__copyright/footer__copyright.css");
+
+/* подключаем стили блока popup */
+@import url("../blocks/popup/popup.css");
+@import url("../blocks/popup/__container/popup__container.css");
+@import url("../blocks/popup/__form-heading/popup__form-heading.css");
+@import url("../blocks/popup/__form-profile-info/popup__form-profile-info.css");
+@import url("../blocks/popup/__form-item-style/popup__form-item-style.css");
+@import url("../blocks/popup/__form-profile-name-text/popup__form-profile-name-text.css");
+@import url("../blocks/popup/__form-profile-description-text/popup__form-profile-description-text.css");
+@import url("../blocks/popup/__form-save-submit/popup__form-save-submit.css");
+@import url("../blocks/popup/__container-close-button/popup__container-close-button.css");
+@import url("../blocks/popup/_opened/popup_opened.css");

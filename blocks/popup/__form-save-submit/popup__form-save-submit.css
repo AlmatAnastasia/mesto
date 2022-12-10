@@ -1,0 +1,31 @@
+.popup__form-save-submit {
+    margin: 50px 36px 37px 36px; /* margin: 48px 36px 37px 36px; */
+    padding: 0;
+    width: 358px;
+    height: 50px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1.125rem;
+    line-height: 0.94;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #000000;
+    border: none;
+}
+
+@media screen and (max-width: 320px) {
+
+    .popup__form-save-submit {
+        margin: 45px 22px 25px 22px;
+        width: 238px;
+        height: 46px;
+        font-size: 0.875rem;
+        line-height: 1.21;
+    }
+}
+
+.popup__form-save-submit:hover {
+    background-color: #313131;
+}
+

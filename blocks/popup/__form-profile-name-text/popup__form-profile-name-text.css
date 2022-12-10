@@ -1,0 +1,17 @@
+.popup__form-profile-name-text {
+    margin: 50px 36px 0 36px; /* margin: 54px 36px 0 36px; */
+    padding: 0;
+    padding-bottom: 8px; /* padding-bottom: 13px; */
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 320px) {
+
+    .popup__form-profile-name-text {
+        margin: 75px 22px 0 22px;
+        padding-bottom: 9px; /* padding-bottom: 13px; */
+        width: calc(100% - 2 * 22px);
+    }
+}

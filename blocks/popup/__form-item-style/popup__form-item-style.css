@@ -1,0 +1,20 @@
+.popup__form-item-style {
+    width: calc(100% - 2 * 36px);
+}
+
+@media screen and (max-width: 320px) {
+
+    .popup__form-item-style {
+        width: calc(100% - 2 * 22px);
+    }
+}
+
+.popup__form-item-style::placeholder {
+    color: #000000;
+}
+
+.popup__form-item-style:focus {
+    outline: 3px solid #9932CC;
+    border-radius: 1%;
+    opacity: .7;
+}
