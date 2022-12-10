@@ -1,0 +1,13 @@
+/* Подключение стилей для всех блоков */
+
+/* подключаем код сторонних разработчиков - normalize.css */
+@import url("../vendor/normalize.css");
+
+/* подключаем шрифты - fonts.css */
+@import url("../fonts/fonts.css");
+
+/* подключаем стили блока body */
+@import url("../blocks/body/body.css");
+
+/* подключаем стили блока page */
+@import url("../blocks/page/page.css");
