@@ -6,8 +6,8 @@ const introTitle = document.querySelector('.profile__intro-title');
 const introText = document.querySelector('.profile__intro-text');
 
 let formElement = document.querySelector('.popup__form'); // форма в DOM
-let nameInput = document.querySelector('.popup__input_name-text'); // поля формы в DOM
-let jobInput = document.querySelector('.popup__input_description-text');
+let nameInput = document.querySelector('.popup__input_type_name-text'); // поля формы в DOM
+let jobInput = document.querySelector('.popup__input_type_description-text');
 
 // открыть и закрыть попап, placeholder
 
