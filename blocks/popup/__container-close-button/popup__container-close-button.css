@@ -11,3 +11,13 @@
     background-color: transparent;
     border: none;
 }
+
+@media screen and (max-width: 510px) {
+
+    .popup__container-close-button {
+        width: 20px;
+        height: 20px;
+        top: -36px;
+        right: 0;
+    }
+}

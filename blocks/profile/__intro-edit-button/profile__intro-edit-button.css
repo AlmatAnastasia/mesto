@@ -10,7 +10,7 @@
     background-position: center;
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 862px) {
 
     .profile__intro-edit-button {
         margin-top: 6px;

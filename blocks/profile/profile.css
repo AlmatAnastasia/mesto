@@ -1,17 +1,22 @@
 .profile {
-    margin: 0 auto;
-    margin-top: 40px;
-    width: 100%;
+    margin: 40px auto 0 auto;
+    width: 100%; /* min-width: 863px; 637 + 113 * 2 = 863 */
     display: flex;
     flex-wrap: wrap;
     align-items: center;
 }
 
+@media screen and (max-width: 862px) {
+
+    .profile {
+        margin: 42px auto 0 auto;
+        flex-direction: column;
+    }
+}
+
 @media screen and (max-width: 320px) {
 
     .profile {
-        margin-top: 42px;
         max-width: calc(100vw - 2 * 19px);
-        flex-direction: column;
     }
 }

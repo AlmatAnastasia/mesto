@@ -13,9 +13,9 @@
 @import url("../blocks/page/page.css");
 
 /* подключаем стили дополнительных блоков */
+@import url("../blocks/much-text/much-text.css");
 @import url("../blocks/indicator/indicator.css");
 @import url("../blocks/list/list.css");
-@import url("../blocks/much-text/much-text.css");
 
 /* подключаем стили блока header */
 @import url("../blocks/header/header.css");
