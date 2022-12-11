@@ -3,6 +3,7 @@
     max-width: 336px;
     font-style: normal;
     font-weight: 400;
+    line-height: 1;
     grid-column-start: 1;
     grid-column-end: span 2;
 }
@@ -11,7 +12,6 @@
 
     .profile__intro-text {
         font-size: calc((100vw - 320px)/(1280 - 320) * (18 - 14) + 14px);
-        line-height: calc((100vw - 320px)/(1280 - 320) * (21.78 - 16.94) + 16.94px);
     }
 }
 
