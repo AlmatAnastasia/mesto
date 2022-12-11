@@ -1,5 +1,5 @@
 .profile {
-    margin: 40px auto 0 auto;
+    margin-top: 40px;
     width: 100%; /* min-width: 863px; 637 + 113 * 2 = 863 */
     display: flex;
     flex-wrap: wrap;
@@ -9,7 +9,7 @@
 @media screen and (max-width: 862px) {
 
     .profile {
-        margin: 42px auto 0 auto;
+        margin-top: 42px;
         flex-direction: column;
     }
 }
