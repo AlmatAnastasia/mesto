@@ -55,8 +55,6 @@
 @import url("../blocks/popup/__form-heading/popup__form-heading.css");
 @import url("../blocks/popup/__info/popup__info.css");
 @import url("../blocks/popup/__input/popup__input.css");
-@import url("../blocks/popup/__input/_name-text/popup__input_name-text.css");
-@import url("../blocks/popup/__input/_description-text/popup__input_description-text.css");
 @import url("../blocks/popup/__submit/popup__submit.css");
 @import url("../blocks/popup/__close-button/popup__close-button.css");
 @import url("../blocks/popup/_opened/popup_opened.css");

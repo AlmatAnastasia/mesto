@@ -21,3 +21,7 @@
         right: 0;
     }
 }
+
+.popup__close-button:hover {
+    opacity: .5;
+}
