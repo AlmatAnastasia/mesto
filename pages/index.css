@@ -35,6 +35,7 @@
 
 /* подключаем стили блока cards */
 @import url("../blocks/cards/cards.css");
+@import url("../blocks/cards/__list/cards__list.css");
 
 /* подключаем стили блока card */
 @import url("../blocks/card/card.css");
@@ -52,10 +53,10 @@
 @import url("../blocks/popup/popup.css");
 @import url("../blocks/popup/__container/popup__container.css");
 @import url("../blocks/popup/__form-heading/popup__form-heading.css");
-@import url("../blocks/popup/__form-profile-info/popup__form-profile-info.css");
-@import url("../blocks/popup/__form-item-style/popup__form-item-style.css");
-@import url("../blocks/popup/__form-profile-name-text/popup__form-profile-name-text.css");
-@import url("../blocks/popup/__form-profile-description-text/popup__form-profile-description-text.css");
-@import url("../blocks/popup/__form-save-submit/popup__form-save-submit.css");
-@import url("../blocks/popup/__container-close-button/popup__container-close-button.css");
+@import url("../blocks/popup/__info/popup__info.css");
+@import url("../blocks/popup/__input/popup__input.css");
+@import url("../blocks/popup/__input/_name-text/popup__input_name-text.css");
+@import url("../blocks/popup/__input/_description-text/popup__input_description-text.css");
+@import url("../blocks/popup/__submit/popup__submit.css");
+@import url("../blocks/popup/__close-button/popup__close-button.css");
 @import url("../blocks/popup/_opened/popup_opened.css");

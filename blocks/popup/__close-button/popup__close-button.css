@@ -1,4 +1,4 @@
-.popup__container-close-button {
+.popup__close-button {
     padding: 0;
     width: 32px;
     height: 32px;
@@ -14,7 +14,7 @@
 
 @media screen and (max-width: 510px) {
 
-    .popup__container-close-button {
+    .popup__close-button {
         width: 20px;
         height: 20px;
         top: -36px;

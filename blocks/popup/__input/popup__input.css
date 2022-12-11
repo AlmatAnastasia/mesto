@@ -1,19 +1,19 @@
-.popup__form-item-style {
+.popup__input {
     width: calc(100% - 2 * 36px);
 }
 
 @media screen and (max-width: 320px) {
 
-    .popup__form-item-style {
+    .popup__input {
         width: calc(100% - 2 * 22px);
     }
 }
 
-.popup__form-item-style::placeholder {
+.popup__input::placeholder {
     color: #000000;
 }
 
-.popup__form-item-style:focus {
+.popup__input:focus {
     outline: 3px solid #9932CC;
     border-radius: 1%;
     opacity: .7;

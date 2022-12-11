@@ -1,4 +1,4 @@
-.popup__form-save-submit {
+.popup__submit {
     margin: 50px 36px 37px 36px; /* margin: 48px 36px 37px 36px; */
     padding: 0;
     width: 358px;
@@ -15,14 +15,14 @@
 
 @media screen and (min-width: 320px) and (max-width: 430px) {
 
-    .popup__form-save-submit {
+    .popup__submit {
         width: calc(100vw - 2 * 36px);
     }
 }
 
 @media screen and (max-width: 320px) {
 
-    .popup__form-save-submit {
+    .popup__submit {
         margin: 45px 22px 25px 22px;
         width: 238px;
         height: 46px;
@@ -31,7 +31,7 @@
     }
 }
 
-.popup__form-save-submit:hover {
+.popup__submit:hover {
     background-color: #313131;
 }
 
