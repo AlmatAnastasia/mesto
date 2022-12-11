@@ -11,3 +11,7 @@
     background-color: transparent;
     border: none;
 }
+
+.card__item-like-button:hover {
+    opacity: .5;
+}
