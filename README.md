@@ -68,21 +68,21 @@
 <p>✶ Шесть карточек</p>
 <p>✶ Три формы</p>
 <p>Форма редактирования профиля</p>
-<img src="./images/Demo_form_edit.png" alt="Демо форма &quot;Редактировать профиль&quot;" width="900"><br>
+<img src="./images/Demo_form_edit.png" alt="Демо форма &quot;Редактировать профиль&quot;" width="900">
 <p>Форма добавления новой карточки</p>
-<img src="./images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900"><br>
+<img src="./images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900">
 <p>Форма просмотра фотографий</p>
-<img src="./images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900"><br>
+<img src="./images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900">
 <p>✶ Добавление карточки</p>
 <img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="900"><br>
-<img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="900"><br>
+<img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="900">
 <p>✶ Удаление карточки</p>
 <img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="900"><br>
-<img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="900"><br>
+<img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="900">
 <p>✶ Лайк карточки</p>
 <img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="900"><br>
-<img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="900"><br>
-<p>✶ Плавное открытие и закрытие попапов</p><br>
+<img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="900">
+<p>✶ Плавное открытие и закрытие попапов</p>
 
 **Картинки**
 
