@@ -64,35 +64,24 @@
 </p>
 
 <div id="functionality"></div>
-<h2>Функциональность</h2><br>
-<p>✶ Шесть карточек</p><br>
-<p>✶ Три формы</p><br>
-<p>Форма редактирования профиля</p><br>
+<h2>Функциональность</h2>
+<p>✶ Шесть карточек</p>
+<p>✶ Три формы</p>
+<p>Форма редактирования профиля</p>
 <img src="./images/Demo_form_edit.png" alt="Демо форма &quot;Редактировать профиль&quot;" width="900"><br>
-<p>Форма добавления новой карточки</p><br>
+<p>Форма добавления новой карточки</p>
 <img src="./images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900"><br>
-<p>Форма просмотра фотографий</p><br>
+<p>Форма просмотра фотографий</p>
 <img src="./images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900"><br>
-<p>✶ Добавление карточки</p><br>
-<<<<<<< HEAD
+<p>✶ Добавление карточки</p>
 <img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="900"><br>
 <img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="900"><br>
-<p>✶ Удаление карточки</p><br>
+<p>✶ Удаление карточки</p>
 <img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="900"><br>
 <img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="900"><br>
-<p>✶ Лайк карточки</p><br>
+<p>✶ Лайк карточки</p>
 <img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="900"><br>
 <img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="900"><br>
-=======
-<img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="400">
-<img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="400"><br>
-<p>✶ Удаление карточки</p><br>
-<img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="400">
-<img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="400"><br>
-<p>✶ Лайк карточки</p><br>
-<img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="400">
-<img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="400"><br>
->>>>>>> 614a83c8db77d82983c4d747f5c4b2ed4487f13c
 <p>✶ Плавное открытие и закрытие попапов</p><br>
 
 **Картинки**
