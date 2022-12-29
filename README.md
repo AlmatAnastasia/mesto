@@ -12,6 +12,8 @@
 <a href="#file_structure">Файловая структура</a>
 <br>
 <a href="#technologies">Использованные технологии</a>
+<br>
+<a href="#functionality">Функциональность</a>
 </p>
 
 <div id="description"></div>
@@ -23,12 +25,16 @@
 <br>
 <h2>Ссылка на макет в Figma</h2> 
 <br>
-<p>В Фигме размещен <a href="https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1">макет</a>, в котором видно, как проект должен выглядеть на разрешениях экранов 320 и 1280 пикселей.</p>
+<p><a href="https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1">Макет 1</a> - в нем видно видно, как проект должен выглядеть на разрешениях экранов 320 и 1280 пикселей.</p>
+<p><a href="https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1">Макет 2</a> - новая функциональность.</p>
 
 <div id="demo"></div>
 <h2>Демонстрация</h2><br>
-<p>Ссылка на сайт <a href="https://almatanastasia.github.io/mesto/">тут</a> !</p><br>
-<img src="./images/Demo_index.png" alt="Демо страницы index.html" width="900">
+<h3>Ссылка на сайт <a href="https://almatanastasia.github.io/mesto/">тут</a> !</h3><br>
+<p>❆ Pазрешение - 1280 пикселей</p><br>
+<img src="./images/Demo_index_1280.png" alt="Демо страницы index.html 1280px" width="900"><br>
+<p>❆ Pазрешение - 320 пикселей</p><br>
+<img src="./images/Demo_index_320.png" alt="Демо страницы index.html 320px" width="900">
 
 <div id="file_structure"></div>
 <h2>Файловая структура</h2><br>
@@ -52,9 +58,31 @@
 ⬥ Расширенные возможности HTML и CSS <br>
 ⬥ Технологии адаптивной верстки<br>
 ⬥ Файловая структура CSS по методолгии БЭМ (Nested)<br>
-⬥ Базовый JavaScript<br>
+⬥ Базовый JavaScript (функции, массивы)<br>
 ⬥ Работа с DOM (методы addEventListener, querySelector)<br>
+⬥ Изменение документа (создание, добавление и удаление элементов в DOM)
 </p>
+
+<div id="functionality"></div>
+<h2>Функциональность</h2><br>
+<p>✶ Шесть карточек</p><br>
+<p>✶ Три формы</p><br>
+<p>Форма редактирования профиля</p><br>
+<img src="./images/Demo_form_edit.png" alt="Демо форма &quot;Редактировать профиль&quot;" width="900"><br>
+<p>Форма добавления новой карточки</p><br>
+<img src="./images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900"><br>
+<p>Форма просмотра фотографий</p><br>
+<img src="./images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900"><br>
+<p>✶ Добавление карточки</p><br>
+<img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="400"><br>
+<img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="400"><br>
+<p>✶ Удаление карточки</p><br>
+<img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="400"><br>
+<img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="400"><br>
+<p>✶ Лайк карточки</p><br>
+<img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="400"><br>
+<img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="400"><br>
+<p>✶ Плавное открытие и закрытие попапов</p><br>
 
 **Картинки**
 

@@ -1,0 +1,5 @@
+.card__image_big-image {
+    max-width: 75vw;
+    max-height: 75vh;
+    vertical-align: bottom;
+}

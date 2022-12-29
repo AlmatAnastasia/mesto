@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Сервис &quot;Место&quot;">
+    <meta name="author" content="Алматаева Анастасия">
     <title>Место</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
@@ -13,7 +15,7 @@
 
         <!-- Блок 1 header -->
         <header class="header">
-            <img class="header__logo" src="./images/header-logo.svg" alt="Логотип сервиса &#34;Место&#34;">
+            <img class="header__logo" src="./images/header-logo.svg" alt="Логотип сервиса &quot;Место&quot;">
         </header>
 
         <main class="main">
@@ -21,7 +23,7 @@
             <!-- Блок 2 profile -->
             <section class="profile">
                 <img class="profile__avatar" src="./images/profile-image-avatar.jpg"
-                    alt="Изображение &#34;Аватар профиля&#34;">
+                    alt="Изображение &quot;Аватар профиля&quot;">
                 <div class="profile__intro">
                     <h1 class="profile__intro-title much-text">Моргана Пендрагон</h1>
                     <button type="button" name="edit-button" aria-label="edit-button"
@@ -34,69 +36,7 @@
 
             <!-- Блок 3 cards -->
             <section class="cards">
-                <ul class="cards__list list">
-
-                    <li class="card">
-                        <img class="card__image" src="./images/card-1-image.jpg"
-                            alt="Фотография - &#34;Дворец земледельцев&#34;">
-                        <div class="card__item">
-                            <h2 class="card__item-title much-text">Дворец земледельцев</h2>
-                            <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button indicator"></button>
-                            <!--
-                             <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button card__item-like-button_active indicator"></button>
-                            -->
-                        </div>
-                    </li>
-
-                    <li class="card">
-                        <img class="card__image" src="./images/card-2-image.jpg" alt="Фотография - &#34;Петергоф&#34;">
-                        <div class="card__item">
-                            <h2 class="card__item-title much-text">Петергоф</h2>
-                            <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button indicator"></button>
-                        </div>
-                    </li>
-
-                    <li class="card">
-                        <img class="card__image" src="./images/card-3-image.jpg"
-                            alt="Фотография - &#34;Мурманская область&#34;">
-                        <div class="card__item">
-                            <h2 class="card__item-title much-text">Мурманская область</h2>
-                            <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button indicator"></button>
-                        </div>
-                    </li>
-
-                    <li class="card">
-                        <img class="card__image" src="./images/card-4-image.jpg"
-                            alt="Фотография - &#34;Гора Эльбрус&#34;">
-                        <div class="card__item">
-                            <h2 class="card__item-title much-text">Гора Эльбрус</h2>
-                            <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button indicator"></button>
-                        </div>
-                    </li>
-
-                    <li class="card">
-                        <img class="card__image" src="./images/card-5-image.jpg" alt="Фотография - &#34;Домбай&#34;">
-                        <div class="card__item">
-                            <h2 class="card__item-title much-text">Домбай</h2>
-                            <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button indicator"></button>
-                        </div>
-                    </li>
-
-                    <li class="card">
-                        <img class="card__image" src="./images/card-6-image.jpg" alt="Фотография - &#34;Домбай&#34;">
-                        <div class="card__item">
-                            <h2 class="card__item-title much-text">Куршская коса</h2>
-                            <button type="button" name="like-button" aria-label="like-button"
-                                class="card__item-like-button indicator"></button>
-                        </div>
-                    </li>
-                </ul>
+                <ul class="cards__list list"></ul>
             </section>
 
         </main>
@@ -107,22 +47,39 @@
         </footer>
 
         <!-- Блок 5 popup -->
-        <div class="popup">
+        <div class="popup popup_type_edit"></div>
+        <div class="popup popup_type_new-card"></div>
+        <div class="popup popup_type_image"></div>
+
+        <template class="cards-template">
+            <li class="card">
+                <img class="card__image">
+                <div class="card__item">
+                    <h2 class="card__item-title much-text"></h2>
+                    <button type="button" name="like-button" aria-label="like-button"
+                        class="card__item-like-button indicator"></button>
+                </div>
+                <button type="button" name="delete-button" aria-label="delete-button"
+                    class="card__delete-button indicator"></button>
+            </li>
+        </template>
+
+        <template class="popup-template">
             <div class="popup__container">
                 <form name="profile-form" class="popup__form">
-                    <h3 class="popup__form-heading">Редактировать профиль</h3>
+                    <h3 class="popup__form-heading"></h3>
                     <fieldset class="popup__info">
                         <input type="text" name="popup__input_type_name-text"
                             class="popup__input popup__input_type_name-text" placeholder="" required>
                         <input type="text" name="popup__input_type_description-text"
                             class="popup__input popup__input_type_description-text" placeholder="" required>
                     </fieldset>
-                    <button type="submit" name="submit" aria-label="submit" class="popup__submit indicator">Сохранить</button>
+                    <button type="submit" name="submit" aria-label="submit" class="popup__submit indicator"></button>
                 </form>
                 <button type="button" name="close-button" aria-label="close-button"
                     class="popup__close-button indicator"></button>
             </div>
-        </div>
+        </template>
 
     </div>
 
