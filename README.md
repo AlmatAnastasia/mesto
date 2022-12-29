@@ -74,13 +74,13 @@
 <p>Форма просмотра фотографий</p><br>
 <img src="./images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900"><br>
 <p>✶ Добавление карточки</p><br>
-<img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="400"><br>
+<img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="400">
 <img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="400"><br>
 <p>✶ Удаление карточки</p><br>
-<img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="400"><br>
+<img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="400">
 <img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="400"><br>
 <p>✶ Лайк карточки</p><br>
-<img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="400"><br>
+<img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="400">
 <img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="400"><br>
 <p>✶ Плавное открытие и закрытие попапов</p><br>
 
