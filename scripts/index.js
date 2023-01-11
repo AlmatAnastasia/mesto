@@ -55,6 +55,7 @@ function addPreviewInfo(popup, openButton, card) { // добавить изоб�
     const formHeadingPopup = returnFirstElement(popup, '.popup__form-heading');
     formPopup.prepend(cardImage);
     formHeadingPopup.textContent = cardHeading;
+    switchBinary(cardImage, 'card__image');
     switchBinary(cardImage, 'card__image_preview');
 };
 
@@ -162,7 +163,7 @@ function addPopupImage(section, element) { // добавить попап (image
     const formPopup = newPopup.querySelector('.popup__form');
     const formHeadingPopup = newPopup.querySelector('.popup__form-heading');
     closeButton.addEventListener('click', function () {
-        const imagePopup = returnFirstElement(formPopup, '.card__image');
+        const imagePopup = returnFirstElement(formPopup, '.card__image_preview');
         setTimeout(() => {
             imagePopup.remove();
             formHeadingPopup.textContent = '';
