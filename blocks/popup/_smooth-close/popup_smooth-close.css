@@ -1,0 +1,27 @@
+@keyframes smooth-close {
+    0% {
+        opacity: 1;
+    }
+
+    25% {
+        opacity: 0.75;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    75% {
+        opacity: 0.25;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.popup_smooth-close {
+    visibility: visible;
+    opacity: 0;
+    animation: smooth-close 1s linear 1;
+}
