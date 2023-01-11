@@ -1,5 +1,5 @@
 // Добавление переменных card
-const initialCards = [ // объект карточек
+const initialCards = [ // массив карточек
     {
         name: 'Дворец земледельцев',
         link: 'https://images.unsplash.com/photo-1591390133438-532f27239ff3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=878&q=80'
@@ -43,8 +43,7 @@ let clonePopupImage = undefined;
 // Стрелочные функции
 const returnFirstElement = (where, elem) => where.querySelector(elem); // вернуть первый элемент
 const addAttribute = (elem, attr, text) => { elem[attr] = text; }; // добавить атрибут (alt, src, textContent)
-const insertIntoDocumentEnd = (where, elem) => where.append(elem); // вставить в конец элемента (метод вставки)
-const insertIntoDocumentBegin = (where, elem) => where.prepend(elem); // вставить в начало элемента (метод вставки)
+const addCard = (elem, where) => where.prepend(elem); // вставить в начало элемента (метод вставки)
 const switchBinary = (elem, className) => elem.classList.toggle(className); // переключатель
 const addClass = (elem, className) => elem.classList.add(className); // добавить класс
 
@@ -82,9 +81,9 @@ function addCardActiveListeners(card) { // добавить обработчик
 };
 
 function createCard(cardsName, cardsLink) { // создать карточку
-    const cloneElementCard = elementCard.cloneNode(true);
-    const cardImage = returnFirstElement(cloneElementCard, '.card__image');
-    const cardTitle = returnFirstElement(cloneElementCard, '.card__item-title');
+    const newCard = elementCard.cloneNode(true);
+    const cardImage = returnFirstElement(newCard, '.card__image');
+    const cardTitle = returnFirstElement(newCard, '.card__item-title');
     addAttribute(cardImage, 'alt', `Фотография - ${cardsName}`);
     addAttribute(cardImage, 'src', cardsLink);
     addAttribute(cardTitle, 'textContent', cardsName);
@@ -92,17 +91,8 @@ function createCard(cardsName, cardsLink) { // создать карточку
         alert("Ошибка во время загрузки изображения");
         card.remove();
     };
-    addCardActiveListeners(cloneElementCard);
-    return cloneElementCard;
-};
-
-function addCard(card) { // добавить карточку
-    const len = elementSectionCards.children.length + 1;
-    if (len <= 6) {
-        insertIntoDocumentEnd(elementSectionCards, card);
-    } else {
-        insertIntoDocumentBegin(elementSectionCards, card);
-    };
+    addCardActiveListeners(newCard);
+    return newCard;
 };
 
 function addEventCloseButton(popup) { // закрыть попап при нажатии на кнопку
@@ -148,7 +138,7 @@ function handleFormSubmitNewCard(evt) { // обработчик «отправк
     const jobInput = returnFirstElement(evt.target, '.popup__input_type_description-text');
     const card = createCard(nameInput.value, jobInput.value); // создать карточку
     evt.preventDefault();
-    addCard(card); // добавить карточку
+    addCard(card, elementSectionCards); // добавить карточку
     closePopup(evt.currentTarget);
 };
 
@@ -161,16 +151,16 @@ function addListenersPopupNewCard(popup, openButton) { // добавить об�
 };
 
 function addPopup(section, element, openButton, functionName) { // добавить попап (edit, new-card)
-    const cloneStart = element.cloneNode(true); // template элемент
-    functionName(cloneStart, openButton);
-    insertIntoDocumentEnd(section, cloneStart);
+    const newPopup = element.cloneNode(true); // template элемент
+    functionName(newPopup, openButton);
+    addCard(newPopup, section);
 };
 
 function addPopupImage(section, element) { // добавить попап (image)
-    const cloneStart = element.cloneNode(true); // template элемент
-    const closeButton = cloneStart.querySelector('.popup__close-button');
-    const formPopup = cloneStart.querySelector('.popup__form');
-    const formHeadingPopup = cloneStart.querySelector('.popup__form-heading');
+    const newPopup = element.cloneNode(true); // template элемент
+    const closeButton = newPopup.querySelector('.popup__close-button');
+    const formPopup = newPopup.querySelector('.popup__form');
+    const formHeadingPopup = newPopup.querySelector('.popup__form-heading');
     closeButton.addEventListener('click', function () {
         const imagePopup = returnFirstElement(formPopup, '.card__image');
         setTimeout(() => {
@@ -178,17 +168,17 @@ function addPopupImage(section, element) { // добавить попап (image
             formHeadingPopup.textContent = '';
         }, 1000);
     });
-    addEventCloseButton(cloneStart);
-    insertIntoDocumentEnd(section, cloneStart);
-    return cloneStart;
+    addEventCloseButton(newPopup);
+    addCard(newPopup, section);
+    return newPopup;
 };
 
 // Основной код
-initialCards.forEach((item) => { // создать шесть карточек
+initialCards.reverse().forEach((item) => { // создать шесть карточек
     const cardsName = item.name; // заголовок и ссылка
     const cardsLink = item.link;
     const card = createCard(cardsName, cardsLink); // создать карточку
-    addCard(card); // добавить карточку
+    addCard(card, elementSectionCards); // добавить карточку
 });
 addPopup(elementSectionPopups, elementPopupEdit, elementPopupEditButton, addListenersPopupEdit);
 addPopup(elementSectionPopups, elementPopupNewCard, elementPopupNewCardButton, addListenersPopupNewCard);
