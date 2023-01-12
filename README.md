@@ -2,7 +2,6 @@
 ---
 ***Содержание файла README.md***
 <p>
-<br>
 <a href="#description">Описание</a>
 <br>
 <a href="#figma">Ссылка на макет в Figma</a>
@@ -17,27 +16,24 @@
 </p>
 
 <div id="description"></div>
-<br>
 <h2>Описание</h2>
 <p>Данный проект реализован в рамках курсов от Яндекс.Практикум и представляет собой сервис Mesto: интерактивную страницу, куда можно добавлять фотографии, удалять их и ставить лайки. Для реализации используется дизайн-макет в Figma.</p>
 
 <div id="figma"></div>
-<br>
 <h2>Ссылка на макет в Figma</h2> 
-<br>
 <p><a href="https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1">Макет 1</a> - в нем видно видно, как проект должен выглядеть на разрешениях экранов 320 и 1280 пикселей.</p>
 <p><a href="https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1">Макет 2</a> - новая функциональность.</p>
 
 <div id="demo"></div>
-<h2>Демонстрация</h2><br>
-<h3>Ссылка на сайт <a href="https://almatanastasia.github.io/mesto/">тут</a> !</h3><br>
-<p>❆ Pазрешение - 1280 пикселей</p><br>
-<img src="./images/Demo_index_1280.png" alt="Демо страницы index.html 1280px" width="900"><br>
-<p>❆ Pазрешение - 320 пикселей</p><br>
+<h2>Демонстрация</h2>
+<h3>Ссылка на сайт <a href="https://almatanastasia.github.io/mesto/">тут</a> !</h3>
+<p>❆ Pазрешение - 1280 пикселей</p>
+<img src="./images/Demo_index_1280.png" alt="Демо страницы index.html 1280px" width="900">
+<p>❆ Pазрешение - 320 пикселей</p>
 <img src="./images/Demo_index_320.png" alt="Демо страницы index.html 320px" width="900">
 
 <div id="file_structure"></div>
-<h2>Файловая структура</h2><br>
+<h2>Файловая структура</h2>
 <pre>
 .
 ├── blocks          # Файлы стилей блоков<br>
@@ -48,11 +44,11 @@
 ├── vendor          # Файлы сторонних библиотек<br>
 ├── .nojekyll       # Пустой файл для публикации на GitHub Pages<br>
 ├── README.md       # Файл документации проекта<br>
-└── index.html      # Главная страница сервиса<br>
+└── index.html      # Главная страница сервиса
 </pre>
 
 <div id="technologies"></div>
-<h2>Использованные технологии</h2><br>
+<h2>Использованные технологии</h2>
 <p>
 ⬥ Работа с макетом в Figma<br>
 ⬥ Расширенные возможности HTML и CSS <br>
