@@ -1,6 +1,8 @@
 .card__image_preview {
     max-width: 75vw;
     max-height: 75vh;
+    width: 100%;
+    height: 100%;
     vertical-align: bottom;
     border-radius: 3% 3% 0 0;
 }
