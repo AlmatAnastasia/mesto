@@ -5,13 +5,13 @@ const switchBinary = (elem, className) => elem.classList.toggle(className); // �
 const addClass = (elem, className) => elem.classList.add(className); // добавить класс
 
 // Функции
-function addPreviewInfo(popup, cardImage, card) { // добавить изображение и заголовок попапу (image)
+function addPreviewInfo(cardImage, card) { // добавить изображение и заголовок попапу (image)
     const cardHeading = returnFirstElement(card, '.card__item-title').textContent;
-    const formImagePopup = returnFirstElement(popup, '.card__image');
-    const formHeadingPopup = returnFirstElement(popup, '.popup__form-heading');
-    formImagePopup['alt'] = cardImage['alt'];
-    formImagePopup['src'] = cardImage['src'];
-    formHeadingPopup['textContent'] = cardHeading;
+    const formImagePopup = returnFirstElement(elementPopupImage, '.card__image');
+    const formHeadingPopup = returnFirstElement(elementPopupImage, '.popup__form-heading');
+    formImagePopup.alt = cardImage.alt;
+    formImagePopup.src = cardImage.src;
+    formHeadingPopup.textContent = cardHeading;
 };
 
 function openPopup(popup) { // открыть попап
@@ -30,7 +30,7 @@ function addCardActiveListeners(card) { // добавить обработчик
         card.remove(); // удалить карточку
     });
     cardImage.addEventListener('click', function (evt) {
-        addPreviewInfo(elementPopupImage, cardImage, card); // добавить изображение и заголовок
+        addPreviewInfo(cardImage, card); // добавить изображение и заголовок
         openPopup(elementPopupImage);
     });
 };
@@ -39,9 +39,9 @@ function createCard(cardsName, cardsLink) { // создать карточку
     const newCard = elementCard.cloneNode(true);
     const cardImage = returnFirstElement(newCard, '.card__image');
     const cardTitle = returnFirstElement(newCard, '.card__item-title');
-    cardImage['alt'] = `Фотография - ${cardsName}`;
-    cardImage['src'] = cardsLink;
-    cardTitle['textContent'] = cardsName;
+    cardImage.alt = `Фотография - ${cardsName}`;
+    cardImage.src = cardsLink;
+    cardTitle.textContent = cardsName;
     cardImage.onerror = function () {
         alert("Ошибка во время загрузки изображения");
     };
@@ -61,32 +61,26 @@ function addEventCloseButton(popup) { // закрыть попап при наж
 };
 
 function handleFormEditSubmit(evt) { // обработчик «отправки» формы (edit)
-    const nameInput = returnFirstElement(evt.target, '.popup__input_type_name-text');
-    const jobInput = returnFirstElement(evt.target, '.popup__input_type_description-text');
     evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
-    introTitle['textContent'] = nameInput.value;
-    introText['textContent'] = jobInput.value;
+    introTitle.textContent = elementPopupEditNameInput.value;
+    introText.textContent = elementPopupEditJobInput.value;
     closePopup(evt.currentTarget);
 };
 
 function addListenersPopupEdit(popup, openButton) { // добавить обработчики событий (edit)
-    const nameInput = returnFirstElement(popup, '.popup__input_type_name-text'); // поля формы в DOM
-    const jobInput = returnFirstElement(popup, '.popup__input_type_description-text');
     addEventCloseButton(popup); // закрыть попап при нажатии на кнопку
     openButton.addEventListener('click', function () {
         openPopup(popup);
-        nameInput.value = introTitle.textContent;
-        jobInput.value = introText.textContent;
+        elementPopupEditNameInput.value = introTitle.textContent;
+        elementPopupEditJobInput.value = introText.textContent;
     });
     // прикрепить обработчик к форме: будет следить за событием “submit” - «отправка»
     popup.addEventListener('submit', handleFormEditSubmit);
 };
 
 function handleFormNewCardSubmit(evt) { // обработчик «отправки» формы (new-card)
-    const nameInput = returnFirstElement(evt.target, '.popup__input_type_name-text');
-    const linkInput = returnFirstElement(evt.target, '.popup__input_type_description-url');
     evt.preventDefault();
-    const card = createCard(nameInput.value, linkInput.value); // создать карточку
+    const card = createCard(elementPopupNewCardNameInput.value, elementPopupNewCardLinkInput.value); // создать карточку
     addCard(card, elementSectionCards); // добавить карточку
     closePopup(evt.currentTarget);
 };
@@ -95,26 +89,28 @@ function addListenersPopupNewCard(popup, openButton) { // добавить об�
     addEventCloseButton(popup);
     openButton.addEventListener('click', function () {
         openPopup(popup);
+        elementPopupNewCardNameInput.value = '';
+        elementPopupNewCardLinkInput.value = '';
     });
     popup.addEventListener('submit', handleFormNewCardSubmit);
 };
 
-function addPopup(section, popup, openButton, functionName) { // добавить попап (edit, new-card)
+function initPopup(popup, openButton, functionName) { // инициализировать попап (edit, new-card)
     functionName(popup, openButton);
-    addCard(popup, section);
+    elementSectionPopups.append(popup);
 };
 
-function addPopupImage(section, popup) { // добавить попап (image)
-    const closeButton = popup.querySelector('.popup__close-button');
-    const formImagePopup = returnFirstElement(popup, '.card__image');
-    const formHeadingPopup = popup.querySelector('.popup__form-heading');
+function initPopupImage() { // инициализировать попап (image)
+    const closeButton = elementPopupImage.querySelector('.popup__close-button');
+    const formImagePopup = returnFirstElement(elementPopupImage, '.card__image');
+    const formHeadingPopup = elementPopupImage.querySelector('.popup__form-heading');
     closeButton.addEventListener('click', function () {
-        formImagePopup['alt'] = '';
-        formImagePopup['src'] = '';
-        formHeadingPopup['text'] = '';
+        formImagePopup.alt = '';
+        formImagePopup.src = '';
+        formHeadingPopup.text = '';
     });
-    addEventCloseButton(popup);
-    addCard(popup, section);
+    addEventCloseButton(elementPopupImage);
+    elementSectionPopups.append(elementPopupImage);
 };
 
 // Основной код
@@ -122,6 +118,6 @@ initialCards.reverse().forEach((item) => { // создать шесть карт
     const card = createCard(item.name, item.link); // создать карточку
     addCard(card, elementSectionCards); // добавить карточку
 });
-addPopup(elementSectionPopups, elementPopupEdit, elementPopupEditButton, addListenersPopupEdit);
-addPopup(elementSectionPopups, elementPopupNewCard, elementPopupNewCardButton, addListenersPopupNewCard);
-addPopupImage(elementSectionPopups, elementPopupImage);
+initPopup(elementPopupEdit, elementPopupEditButton, addListenersPopupEdit);
+initPopup(elementPopupNewCard, elementPopupNewCardButton, addListenersPopupNewCard);
+initPopupImage();
