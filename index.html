@@ -54,26 +54,11 @@
         </footer>
 
         <!-- Блок 5 popup -->
-        <section class="popups"></section>
-
-        <template class="cards-template">
-            <li class="card">
-                <img class="card__image indicator">
-                <div class="card__item">
-                    <h2 class="card__item-title much-text"></h2>
-                    <button type="button" name="like-button" aria-label="Кнопка &quot;Лайк&quot;"
-                        class="card__item-like-button indicator"></button>
-                </div>
-                <button type="button" name="delete-button" aria-label="Кнопка &quot;Удалить&quot;"
-                    class="card__delete-button indicator"></button>
-            </li>
-        </template>
-
-        <template class="popups-template">
+        <section class="popups">
             <div class="popup popup_type_edit">
                 <div class="popup__container">
-                    <form name="profile-form" class="popup__form">
-                        <h3 class="popup__form-heading">Редактировать профиль</h3>
+                    <form name="popup-form" class="popup__form">
+                        <h3 class="popup__heading">Редактировать профиль</h3>
                         <fieldset class="popup__info">
                             <input type="text" name="popup__input_type_name-text"
                                 class="popup__input popup__input_type_name-text" placeholder="Имя" required>
@@ -89,13 +74,14 @@
             </div>
             <div class="popup popup_type_new-card">
                 <div class="popup__container">
-                    <form name="profile-form" class="popup__form">
-                        <h3 class="popup__form-heading">Новое место</h3>
+                    <form name="popup-form" class="popup__form">
+                        <h3 class="popup__heading">Новое место</h3>
                         <fieldset class="popup__info">
                             <input type="text" name="popup__input_type_name-text"
                                 class="popup__input popup__input_type_name-text" placeholder="Название" required>
                             <input type="url" name="popup__input_type_description-url"
-                                class="popup__input popup__input_type_description-url" placeholder="Ссылка на картинку" required>
+                                class="popup__input popup__input_type_description-url" placeholder="Ссылка на картинку"
+                                required>
                         </fieldset>
                         <button type="submit" name="submit" aria-label="Кнопка отправки формы &quot;Создать&quot;"
                             class="popup__submit indicator">Создать</button>
@@ -106,14 +92,25 @@
             </div>
             <div class="popup popup_preview popup_type_image">
                 <div class="popup__container popup__container_preview">
-                    <form name="profile-form" class="popup__form">
-                        <img class="card__image card__image_preview indicator">
-                        <h3 class="popup__form-heading popup__form-heading_preview"></h3>
-                    </form>
+                    <img class="popup__image indicator">
+                    <h3 class="popup__heading popup__heading_preview"></h3>
                     <button type="button" name="close-button" aria-label="Кнопка &quot;Закрыть&quot;"
                         class="popup__close-button indicator"></button>
                 </div>
             </div>
+        </section>
+
+        <template class="cards-template">
+            <li class="card">
+                <img class="card__image indicator">
+                <div class="card__item">
+                    <h2 class="card__item-title much-text"></h2>
+                    <button type="button" name="like-button" aria-label="Кнопка &quot;Лайк&quot;"
+                        class="card__item-like-button indicator"></button>
+                </div>
+                <button type="button" name="delete-button" aria-label="Кнопка &quot;Удалить&quot;"
+                    class="card__delete-button indicator"></button>
+            </li>
         </template>
 
     </div>

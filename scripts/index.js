@@ -7,11 +7,11 @@ const addClass = (elem, className) => elem.classList.add(className); // доба
 // Функции
 function addPreviewInfo(cardImage, card) { // добавить изображение и заголовок попапу (image)
     const cardHeading = returnFirstElement(card, '.card__item-title').textContent;
-    const formImagePopup = returnFirstElement(elementPopupImage, '.card__image');
-    const formHeadingPopup = returnFirstElement(elementPopupImage, '.popup__form-heading');
-    formImagePopup.alt = cardImage.alt;
-    formImagePopup.src = cardImage.src;
-    formHeadingPopup.textContent = cardHeading;
+    const popupImage = returnFirstElement(elementPopupImage, '.popup__image');
+    const popupHeading = returnFirstElement(elementPopupImage, '.popup__heading');
+    popupImage.alt = cardImage.alt;
+    popupImage.src = cardImage.src;
+    popupHeading.textContent = cardHeading;
 };
 
 function openPopup(popup) { // открыть попап
@@ -95,22 +95,16 @@ function addListenersPopupNewCard(popup, openButton) { // добавить об�
     popup.addEventListener('submit', handleFormNewCardSubmit);
 };
 
-function initPopup(section, popup, openButton, functionName) { // инициализировать попап (edit, new-card)
-    functionName(popup, openButton);
-    section.append(popup);
-};
-
-function initPopupImage(section, popup) { // инициализировать попап (image)
-    const closeButton = popup.querySelector('.popup__close-button');
-    const formImagePopup = returnFirstElement(popup, '.card__image');
-    const formHeadingPopup = popup.querySelector('.popup__form-heading');
+function initPopupImage() { // инициализировать попап (image)
+    const closeButton = elementPopupImage.querySelector('.popup__close-button');
+    const popupImage = returnFirstElement(elementPopupImage, '.popup__image');
+    const popupHeading = elementPopupImage.querySelector('.popup__heading');
     closeButton.addEventListener('click', function () {
-        formImagePopup.alt = '';
-        formImagePopup.src = '';
-        formHeadingPopup.text = '';
+        popupImage.alt = '';
+        popupImage.src = '';
+        popupHeading.text = '';
     });
-    addEventCloseButton(popup);
-    section.append(popup);
+    addEventCloseButton(elementPopupImage);
 };
 
 // Основной код
@@ -118,6 +112,6 @@ initialCards.reverse().forEach((item) => { // создать шесть карт
     const card = createCard(item.name, item.link); // создать карточку
     addCard(card, elementSectionCards); // добавить карточку
 });
-initPopup(elementSectionPopups, elementPopupEdit, elementPopupEditButton, addListenersPopupEdit);
-initPopup(elementSectionPopups, elementPopupNewCard, elementPopupNewCardButton, addListenersPopupNewCard);
-initPopupImage(elementSectionPopups, elementPopupImage);
+addListenersPopupEdit(elementPopupEdit, elementPopupEditButton);
+addListenersPopupNewCard(elementPopupNewCard, elementPopupNewCardButton);
+initPopupImage();
