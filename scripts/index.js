@@ -95,11 +95,6 @@ function addListenersPopupNewCard(popup, openButton) { // добавить об�
     popup.addEventListener('submit', handleFormNewCardSubmit);
 };
 
-function initPopup(popup, openButton, functionName) { // инициализировать попап (edit, new-card)
-    functionName(popup, openButton);
-    elementSectionPopups.append(popup);
-};
-
 function initPopupImage() { // инициализировать попап (image)
     const closeButton = elementPopupImage.querySelector('.popup__close-button');
     const formImagePopup = returnFirstElement(elementPopupImage, '.card__image');
@@ -110,7 +105,6 @@ function initPopupImage() { // инициализировать попап (imag
         formHeadingPopup.text = '';
     });
     addEventCloseButton(elementPopupImage);
-    elementSectionPopups.append(elementPopupImage);
 };
 
 // Основной код
@@ -118,6 +112,6 @@ initialCards.reverse().forEach((item) => { // создать шесть карт
     const card = createCard(item.name, item.link); // создать карточку
     addCard(card, elementSectionCards); // добавить карточку
 });
-initPopup(elementPopupEdit, elementPopupEditButton, addListenersPopupEdit);
-initPopup(elementPopupNewCard, elementPopupNewCardButton, addListenersPopupNewCard);
+addListenersPopupEdit(elementPopupEdit, elementPopupEditButton);
+addListenersPopupNewCard(elementPopupNewCard, elementPopupNewCardButton);
 initPopupImage();
