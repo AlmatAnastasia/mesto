@@ -41,3 +41,18 @@ const elementPopupNewCardNameInput = elementPopupNewCard.querySelector('.popup__
 const elementPopupNewCardLinkInput = elementPopupNewCard.querySelector('.popup__input_type_description-url');
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 const elementPopupImage = elementSectionPopups.querySelector('.popup_type_image'); // Превью
+// Объект настроек для валидации форм
+const selectorsForValidation = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    buttonSelector: '.popup__submit',
+    buttonClass: {
+        inactiveButtonClass: 'popup__submit_disabled',
+        indicatorClass: 'indicator',
+        inactiveIndicatorClass: 'indicator_disabled'
+    },
+    errorClass: {
+        inputErrorClass: 'popup__input_type_error',
+        errorClass: 'popup__input-error'
+    }
+};

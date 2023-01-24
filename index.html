@@ -14,6 +14,7 @@
         - запуск скрипта после того, как DOM дерево будет полностью построено (вся страница будет обработана)
     -->
     <script defer src="./scripts/constants.js"></script>
+    <script defer src="./scripts/validate.js"></script>
     <script defer src="./scripts/index.js"></script>
 </head>
 
@@ -57,13 +58,22 @@
         <section class="popups">
             <div class="popup popup_type_edit">
                 <div class="popup__container">
-                    <form name="popup-form" class="popup__form">
+                    <form name="popup-form" class="popup__form" novalidate>
                         <h3 class="popup__heading">Редактировать профиль</h3>
                         <fieldset class="popup__info">
-                            <input type="text" name="popup__input_type_name-text"
-                                class="popup__input popup__input_type_name-text" placeholder="Имя" required>
-                            <input type="text" name="popup__input_type_description-text"
-                                class="popup__input popup__input_type_description-text" placeholder="О себе" required>
+                            <div class="popup__cell">
+                                <input type="text" id="popup-edit-name-text" name="popup__input_type_name-text"
+                                    class="popup__input popup__input_type_name-text" placeholder="Имя" minlength="2"
+                                    maxlength="40" required>
+                                <span class="popup-edit-name-text-error"></span>
+                            </div>
+                            <div class="popup__cell">
+                                <input type="text" id="popup-edit-description-text"
+                                    name="popup__input_type_description-text"
+                                    class="popup__input popup__input_type_description-text" placeholder="О себе"
+                                    minlength="2" maxlength="200" required>
+                                <span class="popup-edit-description-text-error"></span>
+                            </div>
                         </fieldset>
                         <button type="submit" name="submit" aria-label="Кнопка отправки формы &quot;Сохранить&quot;"
                             class="popup__submit indicator">Сохранить</button>
@@ -74,14 +84,22 @@
             </div>
             <div class="popup popup_type_new-card">
                 <div class="popup__container">
-                    <form name="popup-form" class="popup__form">
+                    <form name="popup-form" class="popup__form" novalidate>
                         <h3 class="popup__heading">Новое место</h3>
                         <fieldset class="popup__info">
-                            <input type="text" name="popup__input_type_name-text"
-                                class="popup__input popup__input_type_name-text" placeholder="Название" required>
-                            <input type="url" name="popup__input_type_description-url"
-                                class="popup__input popup__input_type_description-url" placeholder="Ссылка на картинку"
-                                required>
+                            <div class="popup__cell">
+                                <input type="text" id="popup-new-card-name-text" name="popup__input_type_name-text"
+                                    class="popup__input popup__input_type_name-text" placeholder="Название"
+                                    minlength="2" maxlength="30" required>
+                                <span class="popup-new-card-name-text-error"></span>
+                            </div>
+                            <div class="popup__cell">
+                                <input type="url" id="popup-new-card-description-url"
+                                    name="popup__input_type_description-url"
+                                    class="popup__input popup__input_type_description-url"
+                                    placeholder="Ссылка на картинку" required>
+                                <span class="popup-new-card-description-url-error"></span>
+                            </div>
                         </fieldset>
                         <button type="submit" name="submit" aria-label="Кнопка отправки формы &quot;Создать&quot;"
                             class="popup__submit indicator">Создать</button>
@@ -92,7 +110,7 @@
             </div>
             <div class="popup popup_preview popup_type_image">
                 <div class="popup__container popup__container_preview">
-                    <img class="popup__image indicator">
+                    <img class="popup__image indicator" src="" alt="Превью">
                     <h3 class="popup__heading popup__heading_preview"></h3>
                     <button type="button" name="close-button" aria-label="Кнопка &quot;Закрыть&quot;"
                         class="popup__close-button indicator"></button>
@@ -102,7 +120,7 @@
 
         <template class="cards-template">
             <li class="card">
-                <img class="card__image indicator">
+                <img class="card__image indicator" src="" alt="Фотография места">
                 <div class="card__item">
                     <h2 class="card__item-title much-text"></h2>
                     <button type="button" name="like-button" aria-label="Кнопка &quot;Лайк&quot;"

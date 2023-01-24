@@ -1,8 +1,8 @@
 // Стрелочные функции
-const returnFirstElement = (where, elem) => where.querySelector(elem); // вернуть первый элемент
 const addCard = (elem, where) => where.prepend(elem); // вставить в начало элемента (метод вставки)
 const switchBinary = (elem, className) => elem.classList.toggle(className); // переключатель
 const addClass = (elem, className) => elem.classList.add(className); // добавить класс
+const hasClass = (elem, className) => elem.classList.contains(className); // проверить наличие класса
 
 // Функции
 function addPreviewInfo(cardImage, card) { // добавить изображение и заголовок попапу (image)
@@ -42,9 +42,6 @@ function createCard(cardsName, cardsLink) { // создать карточку
     cardImage.alt = `Фотография - ${cardsName}`;
     cardImage.src = cardsLink;
     cardTitle.textContent = cardsName;
-    cardImage.onerror = function () {
-        alert("Ошибка во время загрузки изображения");
-    };
     addCardActiveListeners(newCard);
     return newCard;
 };
@@ -54,7 +51,7 @@ function closePopup(popup) { // закрыть попап
 };
 
 function addEventCloseButton(popup) { // закрыть попап при нажатии на кнопку
-    const closeButton = popup.querySelector('.popup__close-button');
+    const closeButton = returnFirstElement(popup, '.popup__close-button');
     closeButton.addEventListener('click', function () {
         closePopup(popup);
     });
@@ -62,9 +59,11 @@ function addEventCloseButton(popup) { // закрыть попап при наж
 
 function handleFormEditSubmit(evt) { // обработчик «отправки» формы (edit)
     evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
-    introTitle.textContent = elementPopupEditNameInput.value;
-    introText.textContent = elementPopupEditJobInput.value;
-    closePopup(evt.currentTarget);
+    if (!hasClass(evt.submitter, 'popup__submit_disabled')) { // если false, кнопка активна
+        introTitle.textContent = elementPopupEditNameInput.value;
+        introText.textContent = elementPopupEditJobInput.value;
+        closePopup(evt.currentTarget);
+    };
 };
 
 function addListenersPopupEdit(popup, openButton) { // добавить обработчики событий (edit)
@@ -80,9 +79,11 @@ function addListenersPopupEdit(popup, openButton) { // добавить обра
 
 function handleFormNewCardSubmit(evt) { // обработчик «отправки» формы (new-card)
     evt.preventDefault();
-    const card = createCard(elementPopupNewCardNameInput.value, elementPopupNewCardLinkInput.value); // создать карточку
-    addCard(card, elementSectionCards); // добавить карточку
-    closePopup(evt.currentTarget);
+    if (!hasClass(evt.submitter, 'popup__submit_disabled')) {
+        const card = createCard(elementPopupNewCardNameInput.value, elementPopupNewCardLinkInput.value); // создать карточку
+        addCard(card, elementSectionCards); // добавить карточку
+        closePopup(evt.currentTarget);
+    };
 };
 
 function addListenersPopupNewCard(popup, openButton) { // добавить обработчики событий (new-card)
@@ -96,9 +97,9 @@ function addListenersPopupNewCard(popup, openButton) { // добавить об�
 };
 
 function initPopupImage() { // инициализировать попап (image)
-    const closeButton = elementPopupImage.querySelector('.popup__close-button');
+    const closeButton = returnFirstElement(elementPopupImage, '.popup__close-button');
     const popupImage = returnFirstElement(elementPopupImage, '.popup__image');
-    const popupHeading = elementPopupImage.querySelector('.popup__heading');
+    const popupHeading = returnFirstElement(elementPopupImage, '.popup__heading');
     closeButton.addEventListener('click', function () {
         popupImage.alt = '';
         popupImage.src = '';
