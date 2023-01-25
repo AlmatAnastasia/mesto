@@ -79,4 +79,4 @@ const enableValidation = ({ formSelector, ...rest }) => { // включить в
 };
 
 // Основной код
-enableValidation(selectorsForValidation);
+enableValidation(settingsForValidation);

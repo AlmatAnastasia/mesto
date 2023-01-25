@@ -42,7 +42,7 @@ const elementPopupNewCardLinkInput = elementPopupNewCard.querySelector('.popup__
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 const elementPopupImage = elementSectionPopups.querySelector('.popup_type_image'); // Превью
 // Объект настроек для валидации форм
-const selectorsForValidation = {
+const settingsForValidation = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     buttonSelector: '.popup__submit',

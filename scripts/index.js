@@ -3,6 +3,8 @@ const addCard = (elem, where) => where.prepend(elem); // вставить в н�
 const switchBinary = (elem, className) => elem.classList.toggle(className); // переключатель
 const addClass = (elem, className) => elem.classList.add(className); // добавить класс
 const hasClass = (elem, className) => elem.classList.contains(className); // проверить наличие класса
+// evt.preventDefault(); - отмена стандартной отправки формы (определение собственной логики отправки)
+const changeDefaultAction = (evt) => evt.preventDefault(); // изменить действие по умолчанию
 
 // Функции
 function addPreviewInfo(cardImage, card) { // добавить изображение и заголовок попапу (image)
@@ -16,6 +18,21 @@ function addPreviewInfo(cardImage, card) { // добавить изображе�
 
 function openPopup(popup) { // открыть попап
     popup.classList.add('popup_opened');
+};
+
+function closePopup(popup) { // закрыть попап
+    popup.classList.remove('popup_opened');
+};
+
+function handleKeyEsc(evt) { // обработчик нажатия на клавишу Esc
+    const popupList = Array.from(returnAllElements(document, '.popup'));
+    const popup = popupList.filter(function (popup) {
+        return (hasClass(popup, 'popup_opened') === true);
+    })[0];
+    if (evt.key === 'Escape') {
+        closePopup(popup);
+        document.removeEventListener('keyup', handleKeyEsc); // удалить событие keyup
+    };
 };
 
 function addCardActiveListeners(card) { // добавить обработчики событий (card)
@@ -32,6 +49,7 @@ function addCardActiveListeners(card) { // добавить обработчик
     cardImage.addEventListener('click', function (evt) {
         addPreviewInfo(cardImage, card); // добавить изображение и заголовок
         openPopup(elementPopupImage);
+        document.addEventListener('keyup', handleKeyEsc); // прикрепить обработчик нажатия на клавишу Esc
     });
 };
 
@@ -46,10 +64,6 @@ function createCard(cardsName, cardsLink) { // создать карточку
     return newCard;
 };
 
-function closePopup(popup) { // закрыть попап
-    popup.classList.remove('popup_opened');
-};
-
 function addEventCloseButton(popup) { // закрыть попап при нажатии на кнопку
     const closeButton = returnFirstElement(popup, '.popup__close-button');
     closeButton.addEventListener('click', function () {
@@ -57,43 +71,70 @@ function addEventCloseButton(popup) { // закрыть попап при наж
     });
 };
 
+function addEventPopup(popup) { // закрыть попап при нажатии на кнопку или overlay
+    popup.addEventListener('click', function (evt) {
+        const button = evt.target;
+        if (hasClass(button, 'popup__close-button') || hasClass(button, 'popup')) {
+            // закрыть попап при нажатии на кнопку
+            // закрыть попап при нажатии на overlay
+            hasClass(button, 'popup__close-button') ? addEventCloseButton(popup) : closePopup(popup);
+        };
+    });
+};
+
 function handleFormEditSubmit(evt) { // обработчик «отправки» формы (edit)
-    evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
-    if (!hasClass(evt.submitter, 'popup__submit_disabled')) { // если false, кнопка активна
-        introTitle.textContent = elementPopupEditNameInput.value;
-        introText.textContent = elementPopupEditJobInput.value;
-        closePopup(evt.currentTarget);
-    };
+    const popup = evt.currentTarget;
+    const submitButton = returnFirstElement(popup, settingsForValidation.buttonSelector);
+    introTitle.textContent = elementPopupEditNameInput.value;
+    introText.textContent = elementPopupEditJobInput.value;
+    closePopup(popup);
+    popup.removeEventListener('submit', handleFormEditSubmit); // удалить обработчик отправки
+    makeButtonInactive(submitButton, settingsForValidation.buttonClass); // сделать кнопку неактивной
+};
+
+function addEventSubmitButton(popup, submitFunc) { // отправить попап при нажатии на кнопку
+    const submitButton = returnFirstElement(popup, '.popup__submit');
+    submitButton.addEventListener('click', function () {
+        const buttonStatus = hasClass(submitButton, 'popup__submit_disabled');
+        if (!buttonStatus) { // если false, кнопка активна
+            popup.addEventListener('submit', submitFunc); // прикрепить обработчик отправки
+        };
+    });
 };
 
 function addListenersPopupEdit(popup, openButton) { // добавить обработчики событий (edit)
-    addEventCloseButton(popup); // закрыть попап при нажатии на кнопку
+    addEventPopup(popup); // закрыть попап при нажатии на кнопку или overlay
     openButton.addEventListener('click', function () {
         openPopup(popup);
+        document.addEventListener('keyup', handleKeyEsc);
         elementPopupEditNameInput.value = introTitle.textContent;
         elementPopupEditJobInput.value = introText.textContent;
+        addEventSubmitButton(popup, handleFormEditSubmit); // отправить попап при нажатии на кнопку
     });
     // прикрепить обработчик к форме: будет следить за событием “submit” - «отправка»
-    popup.addEventListener('submit', handleFormEditSubmit);
+    popup.addEventListener('submit', changeDefaultAction); // прикрепить обработчик отмены стандартной отправки
 };
 
 function handleFormNewCardSubmit(evt) { // обработчик «отправки» формы (new-card)
-    evt.preventDefault();
-    if (!hasClass(evt.submitter, 'popup__submit_disabled')) {
-        const card = createCard(elementPopupNewCardNameInput.value, elementPopupNewCardLinkInput.value); // создать карточку
-        addCard(card, elementSectionCards); // добавить карточку
-        closePopup(evt.currentTarget);
-    };
+    const popup = evt.currentTarget;
+    const card = createCard(elementPopupNewCardNameInput.value, elementPopupNewCardLinkInput.value); // создать карточку
+    const submitButton = returnFirstElement(popup, settingsForValidation.buttonSelector);
+    addCard(card, elementSectionCards); // добавить карточку
+    closePopup(popup);
+    popup.removeEventListener('submit', handleFormNewCardSubmit); // удалить обработчик отправки
+    makeButtonInactive(submitButton, settingsForValidation.buttonClass); // сделать кнопку неактивной
 };
 
 function addListenersPopupNewCard(popup, openButton) { // добавить обработчики событий (new-card)
-    addEventCloseButton(popup);
+    addEventPopup(popup);
     openButton.addEventListener('click', function () {
         openPopup(popup);
+        document.addEventListener('keyup', handleKeyEsc);
         elementPopupNewCardNameInput.value = '';
         elementPopupNewCardLinkInput.value = '';
+        addEventSubmitButton(popup, handleFormNewCardSubmit);
     });
-    popup.addEventListener('submit', handleFormNewCardSubmit);
+    popup.addEventListener('submit', changeDefaultAction);
 };
 
 function initPopupImage() { // инициализировать попап (image)
@@ -105,7 +146,7 @@ function initPopupImage() { // инициализировать попап (imag
         popupImage.src = '';
         popupHeading.text = '';
     });
-    addEventCloseButton(elementPopupImage);
+    addEventPopup(elementPopupImage);
 };
 
 // Основной код
