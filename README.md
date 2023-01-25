@@ -84,7 +84,11 @@
 <p>✶ Плавное открытие и закрытие попапов</p>
 <p>✶ Лайв-валидация («Живая» валидация)</p>
 </p>Валидация формы «Редактировать профиль»</p>
+<img src="./images/Demo_editValidation_before.png" alt="Валидация формы &quot;Редактировать профиль&quot;" width="900"><br>
+<img src="./images/Demo_editValidation_after.png" alt="Валидация формы &quot;Редактировать профиль&quot;" width="900">
 </p>Валидация формы «Новое место»</p>
+<img src="./images/Demo_newCardValidation_before.png" alt="Валидация формы &quot;Новое место&quot;" width="900"><br>
+<img src="./images/Demo_newCardValidation_after.png" alt="Валидация формы &quot;Новое место&quot;" width="900">
 <p>✶ Три состояния кнопки отправки формы: обычное, при наведении и disabled</p>
 <p>✶ Попап закрывается по в клику любом месте вне этого окна и по нажатию на Esc</p>
 </p>Закрытие попапа кликом на оверлей</p>

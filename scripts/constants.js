@@ -28,6 +28,13 @@ const initialCards = [ // массив карточек
 const elementTemplateCards = document.querySelector('.cards-template').content;
 const elementSectionCards = document.querySelector('.cards__list');
 const elementCard = elementTemplateCards.querySelector('.card');
+// Объект настроек для создания карточки
+const settingsForCreateCard = {
+    imageSelector: '.card__image',
+    titleSelector: '.card__item-title',
+    likeButtonSelector: '.card__item-like-button',
+    deleteButtonSelector: '.card__delete-button'
+};
 // Добавление переменных popups (edit, new-card, image)
 const elementSectionPopups = document.querySelector('.popups');
 const elementPopupEdit = elementSectionPopups.querySelector('.popup_type_edit'); // Редактировать профиль
@@ -39,8 +46,11 @@ const introText = document.querySelector('.profile__intro-text');
 const elementPopupNewCard = elementSectionPopups.querySelector('.popup_type_new-card'); // Новое место
 const elementPopupNewCardNameInput = elementPopupNewCard.querySelector('.popup__input_type_name-text');
 const elementPopupNewCardLinkInput = elementPopupNewCard.querySelector('.popup__input_type_description-url');
+const elementPopupNewCardForm = elementPopupNewCard.querySelector('.popup__form');
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 const elementPopupImage = elementSectionPopups.querySelector('.popup_type_image'); // Превью
+const elementPopupImagePhoto = elementPopupImage.querySelector('.popup__image');
+const elementPopupImageHeading = elementPopupImage.querySelector('.popup__heading');
 // Объект настроек для валидации форм
 const settingsForValidation = {
     formSelector: '.popup__form',
@@ -53,6 +63,6 @@ const settingsForValidation = {
     },
     errorClass: {
         inputErrorClass: 'popup__input_type_error',
-        errorClass: 'popup__input-error'
+        spanErrorClass: 'popup__input-error'
     }
 };

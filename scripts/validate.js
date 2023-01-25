@@ -1,78 +1,82 @@
 // Стрелочные функции
-const returnFirstElement = (where, elem) => where.querySelector(elem); // вернуть первый элемент
-const returnAllElements = (where, elem) => where.querySelectorAll(elem); // вернуть все элементы
-
 const hasInvalidInput = (popupInputList) => { // проверить наличие поля, которое не прошло валидацию
     return popupInputList.some((popupInput) => {
         return !popupInput.validity.valid;
     });
 }; // вернуть true, если есть хотя бы одно поле, которое не прошло валидацию
 
-const makeButtonInactive = (popupButton, { inactiveButtonClass, indicatorClass, inactiveIndicatorClass }) => { // сделать кнопку неактивной
-    popupButton.classList.add(inactiveButtonClass);
-    popupButton.classList.add(inactiveIndicatorClass);
-    popupButton.classList.remove(indicatorClass);
+const makeButtonInactive = (popupButton, settings) => { // сделать кнопку неактивной
+    popupButton.classList.add(settings.buttonClass.inactiveButtonClass);
+    popupButton.classList.add(settings.buttonClass.inactiveIndicatorClass);
+    popupButton.classList.remove(settings.buttonClass.indicatorClass);
+    popupButton.disabled = true;
 };
 
-const makeButtonActive = (popupButton, { inactiveButtonClass, indicatorClass, inactiveIndicatorClass }) => { // сделать кнопку активной
-    popupButton.classList.remove(inactiveButtonClass);
-    popupButton.classList.remove(inactiveIndicatorClass);
-    popupButton.classList.add(indicatorClass);
+const makeButtonActive = (popupButton, settings) => { // сделать кнопку активной
+    popupButton.classList.remove(settings.buttonClass.inactiveButtonClass);
+    popupButton.classList.remove(settings.buttonClass.inactiveIndicatorClass);
+    popupButton.classList.add(settings.buttonClass.indicatorClass);
+    popupButton.disabled = false;
 };
 
-const toggleButtonState = (popupInputList, popupButton, buttonClass) => { // проверить/переключить состояние кнопки
+const toggleButtonState = (popupInputList, popupButton, settings) => { // проверить/переключить состояние кнопки
     if (hasInvalidInput(popupInputList)) { // если есть хотя бы одно поле, которое не проходит валидацию
-        makeButtonInactive(popupButton, buttonClass);
+        makeButtonInactive(popupButton, settings);
     } else { // если все поля проходят валидацию
-        makeButtonActive(popupButton, buttonClass);
+        makeButtonActive(popupButton, settings);
     };
 };
 
-const showErrorMessage = (popupForm, popupInput, errorMessage, errorClass) => { // показать сообщение об ошибке
-    const error = returnFirstElement(popupForm, `.${popupInput.id}-error`); // элемент ошибки (span)
-    error.classList.add(errorClass);
+const showErrorMessage = (popupForm, popupInput, errorMessage, settings) => { // показать сообщение об ошибке
+    const error = popupForm.querySelector(`.${popupInput.id}-error`); // элемент ошибки (span)
+    error.classList.add(settings.errorClass.spanErrorClass);
     error.textContent = errorMessage;
 };
 
-const showInputError = (popupForm, popupInput, errorMessage, { inputErrorClass, errorClass }) => { // показать элемент ошибки
-    popupInput.classList.add(inputErrorClass); // добавить класс с ошибкой
-    showErrorMessage(popupForm, popupInput, errorMessage, errorClass);
+const showInputError = (popupForm, popupInput, errorMessage, settings) => { // показать элемент ошибки
+    popupInput.classList.add(settings.errorClass.inputErrorClass); // добавить класс с ошибкой
+    showErrorMessage(popupForm, popupInput, errorMessage, settings);
 };
 
-const hideErrorMessage = (popupForm, popupInput, errorClass) => { // скрыть сообщение об ошибке
-    const error = returnFirstElement(popupForm, `.${popupInput.id}-error`); // элемент ошибки (span)
-    error.classList.remove(errorClass);
+const hideErrorMessage = (popupForm, popupInput, settings) => { // скрыть сообщение об ошибке
+    const error = popupForm.querySelector(`.${popupInput.id}-error`); // элемент ошибки (span)
+    error.classList.remove(settings.errorClass.spanErrorClass);
     error.textContent = '';
 };
 
-const hideInputError = (popupForm, popupInput, { inputErrorClass, errorClass }) => { // скрыть элемент ошибки
-    popupInput.classList.remove(inputErrorClass); // удалить класс с ошибкой
-    hideErrorMessage(popupForm, popupInput, errorClass);
+const hideInputError = (popupForm, popupInput, settings) => { // скрыть элемент ошибки
+    popupInput.classList.remove(settings.errorClass.inputErrorClass); // удалить класс с ошибкой
+    hideErrorMessage(popupForm, popupInput, settings);
 };
 
-const checkInputValidity = (popupForm, popupInput, restData) => { // проверить валидность поля
+const checkInputValidity = (popupForm, popupInput, settings) => { // проверить валидность поля
     if (!popupInput.validity.valid) { // если поле не проходит валидацию
         const errorMessage = popupInput.validationMessage; // текст ошибки 
-        showInputError(popupForm, popupInput, errorMessage, restData);
+        showInputError(popupForm, popupInput, errorMessage, settings);
     } else { // если поле проходит валидацию
-        hideInputError(popupForm, popupInput, restData);
+        hideInputError(popupForm, popupInput, settings);
     };
 };
 
-const setEventListeners = (popupForm, { inputSelector, buttonSelector, buttonClass, errorClass }) => { // добавить обработчики событий форме и её полям
-    const popupInputList = Array.from(returnAllElements(popupForm, inputSelector)); // массив полей (инпутов)
-    const popupButton = returnFirstElement(popupForm, buttonSelector); //  кнопка отправки
-    toggleButtonState(popupInputList, popupButton, buttonClass); // в самом начале
+const setEventListeners = (popupForm, settings) => { // добавить обработчики событий форме и её полям
+    const popupInputList = Array.from(popupForm.querySelectorAll(settings.inputSelector)); // массив полей (инпутов)
+    const popupButton = popupForm.querySelector(settings.buttonSelector); //  кнопка отправки
+    toggleButtonState(popupInputList, popupButton, settings); // деактивация кнопки при первой загрузке сайта
     popupInputList.forEach((popupInput) => {
-        popupInput.addEventListener('input', function () {
-            checkInputValidity(popupForm, popupInput, errorClass);
-            toggleButtonState(popupInputList, popupButton, buttonClass); // при изменении любого из полей
+        popupInput.addEventListener('input', () => {
+            checkInputValidity(popupForm, popupInput, settings);
+            toggleButtonState(popupInputList, popupButton, settings); // при изменении любого из полей
         });
+    });
+    popupForm.addEventListener('reset', () => { // обработчик reset для деактивации кнопки
+        setTimeout(() => { // дождаться полной очистки формы и деактивировать кнопку
+            toggleButtonState(popupInputList, popupButton, settings);
+        }, 0);
     });
 };
 
 const enableValidation = ({ formSelector, ...rest }) => { // включить валидацию всех форм
-    const popupFormList = Array.from(returnAllElements(document, formSelector)); // массив форм
+    const popupFormList = Array.from(document.querySelectorAll(formSelector)); // массив форм
     popupFormList.forEach((popupForm) => {
         setEventListeners(popupForm, rest);
     });
