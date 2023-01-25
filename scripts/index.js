@@ -10,13 +10,11 @@ const handleDeleteButtonClick = (card) => { // обработчик удален
     };
 };
 
-const addPreviewInfo = (cardImage, card) => { // добавить изображение и заголовок попапу (image)
-    const cardHeading = card.querySelector('.card__item-title').textContent;
-    const popupImage = elementPopupImage.querySelector('.popup__image');
-    const popupHeading = elementPopupImage.querySelector('.popup__heading');
-    popupImage.alt = cardImage.alt;
-    popupImage.src = cardImage.src;
-    popupHeading.textContent = cardHeading;
+const addPreviewInfo = (card, cardImage, settings) => { // добавить изображение и заголовок попапу (image)
+    const cardHeading = card.querySelector(settings.titleSelector).textContent;
+    elementPopupImagePhoto.alt = cardImage.alt;
+    elementPopupImagePhoto.src = cardImage.src;
+    elementPopupImageHeading.textContent = cardHeading;
 };
 
 const closePopup = (popup) => { // закрыть попап
@@ -36,9 +34,9 @@ const openPopup = (popup) => { // открыть попап
     document.addEventListener('keyup', handleKeyEsc); // прикрепить обработчик нажатия на клавишу Esc
 };
 
-const handleCardImageClick = (card, cardImage) => { // обработчик просмотра изображения
+const handleCardImageClick = (card, cardImage, settings) => { // обработчик просмотра изображения
     return () => {
-        addPreviewInfo(cardImage, card); // добавить изображение и заголовок
+        addPreviewInfo(card, cardImage, settings); // добавить изображение и заголовок
         openPopup(elementPopupImage);
     };
 };
@@ -48,7 +46,7 @@ const addCardActiveListeners = (card, cardImage, settings) => { // добави�
     const deleteButton = card.querySelector(settings.deleteButtonSelector);
     likeButton.addEventListener('click', handleLikeButtonClick); // прикрепить обработчик лайка карточки
     deleteButton.addEventListener('click', handleDeleteButtonClick(card)); // прикрепить обработчик удаления карточки
-    cardImage.addEventListener('click', handleCardImageClick(card, cardImage)); // прикрепить обработчик просмотра изображения
+    cardImage.addEventListener('click', handleCardImageClick(card, cardImage, settings)); // прикрепить обработчик просмотра изображения
 };
 
 const createCard = (cardsName, cardsLink, settings) => { // создать карточку
@@ -78,18 +76,16 @@ const handleFormEditSubmit = (evt) => { // обработчик «отправк
     closePopup(popup);
 };
 
-const handlePopupClick = (popup) => { // обработчик клика по попапу
-    return (evt) => {
-        const object = evt.target;
-        const firstParent = evt.target.closest('div');
-        // закрыть попап при нажатии на кнопку или overlay
-        if (object.classList.contains('popup__close-button') || object.classList.contains('popup')) {
-            if (object === firstParent) {
-                closePopup(object);
-                return;
-            };
-            closePopup(popup);
-        };
+// вернуть условие клика
+const returnConditionClick = (object) => object.classList.contains('popup__close-button') || object.classList.contains('popup');
+
+const handlePopupClick = (evt) => { // обработчик клика по попапу
+    const object = evt.target;
+    const conditionClick = returnConditionClick(object); // условие клика
+    // закрыть попап при нажатии на кнопку или overlay
+    if (conditionClick) {
+        const popup = document.querySelector('.popup_opened');
+        closePopup(popup);
     };
 };
 
@@ -97,7 +93,7 @@ const addListenersPopupEdit = (popup, openButton) => { // добавить об�
     openButton.addEventListener('click', handleOpenButtonPopupEditClick); // прикрепить обработчик открытия попапа (edit)
     // прикрепить обработчик к форме: будет следить за событием “submit” - «отправка» 
     popup.addEventListener('submit', handleFormEditSubmit);
-    popup.addEventListener('click', handlePopupClick(popup)); // прикрепить обработчик клика
+    popup.addEventListener('click', handlePopupClick); // прикрепить обработчик клика
 };
 
 const handleOpenButtonPopupNewCardClick = () => { // обработчик открытия попапа (new-card)
@@ -118,27 +114,26 @@ const handleFormNewCardSubmit = (settings) => { // обработчик «отп
 const addListenersPopupNewCard = (popup, openButton, settingsForCreateCard) => { // добавить обработчики событий (new-card)
     openButton.addEventListener('click', handleOpenButtonPopupNewCardClick); // прикрепить обработчик открытия попапа (new-card)
     popup.addEventListener('submit', handleFormNewCardSubmit(settingsForCreateCard));
-    popup.addEventListener('click', handlePopupClick(popup));
+    popup.addEventListener('click', handlePopupClick);
 };
 
 const clearDataPopupImage = () => { // очистить данные попапа (image)
     elementPopupImagePhoto.alt = '';
     elementPopupImagePhoto.src = '';
-    elementPopupImageHeading.text = '';
+    elementPopupImageHeading.textContent = '';
 };
 
 const handlePopupImageClick = (evt) => { // обработчик клика по попапу (image)
     const object = evt.target;
-    const firstParent = evt.target.closest('div');
-    // закрыть попап при нажатии на кнопку или overlay
-    if (object.classList.contains('popup__close-button') || object.classList.contains('popup')) {
-        clearDataPopupImage(); // очистить данные попапа
-        if (object === firstParent) {
-            closePopup(object);
-            return;
-        };
-        closePopup(elementPopupImage);
+    const conditionClick = returnConditionClick(object); // условие клика
+    if (conditionClick) {
+        clearDataPopupImage(); // очистить данные попапа (image)
     };
+};
+
+const addListenersPopupImage = (popup) => { // добавить обработчики событий (image)
+    popup.addEventListener('click', handlePopupImageClick); // прикрепить обработчик клика (image)
+    popup.addEventListener('click', handlePopupClick);
 };
 
 // Основной код
@@ -148,4 +143,4 @@ initialCards.reverse().forEach((item) => { // создать шесть карт
 });
 addListenersPopupEdit(elementPopupEdit, elementPopupEditButton);
 addListenersPopupNewCard(elementPopupNewCard, elementPopupNewCardButton, settingsForCreateCard);
-elementPopupImage.addEventListener('click', handlePopupImageClick); // прикрепить обработчик клика (image)
+addListenersPopupImage(elementPopupImage);
