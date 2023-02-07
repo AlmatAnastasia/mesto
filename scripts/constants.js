@@ -1,5 +1,5 @@
 // Добавление переменных card
-const initialCards = [ // массив карточек
+export const initialCards = [ // массив карточек
     {
         name: 'Дворец земледельцев',
         link: 'https://images.unsplash.com/photo-1591390133438-532f27239ff3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=878&q=80'
@@ -25,15 +25,17 @@ const initialCards = [ // массив карточек
         link: 'https://images.unsplash.com/photo-1645127434513-63c301ebf6de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1033&q=80'
     }
 ];
-const elementTemplateCards = document.querySelector('.cards-template').content;
-const elementSectionCards = document.querySelector('.cards__list');
-const elementCard = elementTemplateCards.querySelector('.card');
+export const templateCardsSelector = '.cards-template';
+export const elementSectionCards = document.querySelector('.cards__list');
 // Объект настроек для создания карточки
-const settingsForCreateCard = {
+export const settingsForCreateCard = {
+    templateSelector: '.cards-template',
+    sectionCardsSelector: '.cards__list',
+    cardSelector: '.card',
     imageSelector: '.card__image',
     titleSelector: '.card__item-title',
     likeButtonSelector: '.card__item-like-button',
-    deleteButtonSelector: '.card__delete-button'
+    deleteButtonSelector: '.card__delete-button',
 };
 // Добавление переменных popups (edit, new-card, image)
 const elementSectionPopups = document.querySelector('.popups');
@@ -51,8 +53,32 @@ const elementPopupNewCardButton = document.querySelector('.profile__add-button')
 const elementPopupImage = elementSectionPopups.querySelector('.popup_type_image'); // Превью
 const elementPopupImagePhoto = elementPopupImage.querySelector('.popup__image');
 const elementPopupImageHeading = elementPopupImage.querySelector('.popup__heading');
+// Объект настроек popups (edit, new-card, image)
+export const elementsForCreatePopups = {
+    sectionPopupsElement: elementSectionPopups,
+    popupEdit: {
+        popupEditElement: elementPopupEdit, // Редактировать профиль
+        popupEditNameInputElement: elementPopupEditNameInput, // поля формы в DOM
+        popupEditJobInputElement: elementPopupEditJobInput,
+        popupEditButtonElement: elementPopupEditButton,
+        introTitleElement: introTitle,
+        introTextElement: introText
+    },
+    popupNewCard: {
+        popupNewCardElement: elementPopupNewCard, // Новое место
+        popupNewCardNameInputElement: elementPopupNewCardNameInput,
+        popupNewCardLinkInputElement: elementPopupNewCardLinkInput,
+        popupNewCardFormElement: elementPopupNewCardForm,
+        popupNewCardButtonElement: elementPopupNewCardButton,
+    },
+    popupImage: {
+        popupImageElement: elementPopupImage, // Превью
+        popupImagePhotoElement: elementPopupImagePhoto,
+        popupImageHeadingElement: elementPopupImageHeading
+    }
+};
 // Объект настроек для валидации форм
-const settingsForValidation = {
+export const settingsForValidation = {
     formSelector: '.popup__form',
     inputSelector: '.popup__input',
     buttonSelector: '.popup__submit',

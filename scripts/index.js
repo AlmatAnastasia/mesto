@@ -1,20 +1,16 @@
+import { Card } from './Card.js';
+import { FormValidator } from './FormValidator.js';
+import { initialCards, settingsForCreateCard as settings, elementsForCreatePopups as elements } from './constants.js';
+import { settingsForValidation as settingsValidation } from './constants.js';
+
 // Стрелочные функции
-const handleLikeButtonClick = (evt) => { // обработчик лайка карточки
-    const likeButton = evt.target;
-    likeButton.classList.toggle('card__item-like-button_active'); // лайк карточки
-};
-
-const handleDeleteButtonClick = (card) => { // обработчик удаления карточки
-    return () => {
-        card.remove(); // удалить карточку
-    };
-};
-
 const addPreviewInfo = (card, cardImage, settings) => { // добавить изображение и заголовок попапу (image)
+    const popupImagePhoto = elements.popupImage.popupImagePhotoElement; // Объект настроек popups (image) - глобальня переменная
+    const popupImageHeading = elements.popupImage.popupImageHeadingElement;
     const cardHeading = card.querySelector(settings.titleSelector).textContent;
-    elementPopupImagePhoto.alt = cardImage.alt;
-    elementPopupImagePhoto.src = cardImage.src;
-    elementPopupImageHeading.textContent = cardHeading;
+    popupImagePhoto.alt = cardImage.alt;
+    popupImagePhoto.src = cardImage.src;
+    popupImageHeading.textContent = cardHeading;
 };
 
 const closePopup = (popup) => { // закрыть попап
@@ -36,44 +32,39 @@ const openPopup = (popup) => { // открыть попап
 
 const handleCardImageClick = (card, cardImage, settings) => { // обработчик просмотра изображения
     return () => {
+        const popupImage = elements.popupImage.popupImageElement; // Превью
         addPreviewInfo(card, cardImage, settings); // добавить изображение и заголовок
-        openPopup(elementPopupImage);
+        openPopup(popupImage);
     };
-};
-
-const addCardActiveListeners = (card, cardImage, settings) => { // добавить обработчики событий (card)
-    const likeButton = card.querySelector(settings.likeButtonSelector);
-    const deleteButton = card.querySelector(settings.deleteButtonSelector);
-    likeButton.addEventListener('click', handleLikeButtonClick); // прикрепить обработчик лайка карточки
-    deleteButton.addEventListener('click', handleDeleteButtonClick(card)); // прикрепить обработчик удаления карточки
-    cardImage.addEventListener('click', handleCardImageClick(card, cardImage, settings)); // прикрепить обработчик просмотра изображения
-};
-
-const createCard = (cardsName, cardsLink, settings) => { // создать карточку
-    const newCard = elementCard.cloneNode(true);
-    const cardImage = newCard.querySelector(settings.imageSelector);
-    const cardTitle = newCard.querySelector(settings.titleSelector);
-    cardImage.alt = `Фотография - ${cardsName}`;
-    cardImage.src = cardsLink;
-    cardTitle.textContent = cardsName;
-    addCardActiveListeners(newCard, cardImage, settings);
-    return newCard;
 };
 
 const addCard = (elem, where) => where.prepend(elem); // вставить в начало элемента (метод вставки)
 
-const handleOpenButtonPopupEditClick = () => { // обработчик открытия попапа (edit)
-    openPopup(elementPopupEdit);
-    elementPopupEditNameInput.value = introTitle.textContent;
-    elementPopupEditJobInput.value = introText.textContent;
+const handleOpenButtonPopupEditClick = (elements) => { // обработчик открытия попапа (edit)
+    return () => {
+        const popupEdit = elements.popupEditElement; // Редактировать профиль
+        const popupEditNameInput = elements.popupEditNameInputElement; // поля формы в DOM
+        const popupEditJobInput = elements.popupEditJobInputElement;
+        const introTitle = elements.introTitleElement;
+        const introText = elements.introTextElement;
+        openPopup(popupEdit);
+        popupEditNameInput.value = introTitle.textContent;
+        popupEditJobInput.value = introText.textContent;
+    };
 };
 
-const handleFormEditSubmit = (evt) => { // обработчик «отправки» формы (edit)
-    const popup = evt.currentTarget;
-    evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
-    introTitle.textContent = elementPopupEditNameInput.value;
-    introText.textContent = elementPopupEditJobInput.value;
-    closePopup(popup);
+const handleFormEditSubmit = (elements) => { // обработчик «отправки» формы (edit)
+    return (evt) => {
+        const popup = evt.currentTarget;
+        const popupEditNameInput = elements.popupEditNameInputElement; // поля формы в DOM
+        const popupEditJobInput = elements.popupEditJobInputElement;
+        const introTitle = elements.introTitleElement;
+        const introText = elements.introTextElement;
+        evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
+        introTitle.textContent = popupEditNameInput.value;
+        introText.textContent = popupEditJobInput.value;
+        closePopup(popup);
+    };
 };
 
 // вернуть условие клика
@@ -89,58 +80,85 @@ const handlePopupClick = (evt) => { // обработчик клика по по
     };
 };
 
-const addListenersPopupEdit = (popup, openButton) => { // добавить обработчики событий (edit)
-    openButton.addEventListener('click', handleOpenButtonPopupEditClick); // прикрепить обработчик открытия попапа (edit)
+const addListenersPopupEdit = (elements) => { // добавить обработчики событий (edit)
+    const popupEdit = elements.popupEditElement; // Редактировать профиль
+    const popupEditButton = elements.popupEditButtonElement;
+    popupEditButton.addEventListener('click', handleOpenButtonPopupEditClick(elements)); // прикрепить обработчик открытия попапа (edit)
     // прикрепить обработчик к форме: будет следить за событием “submit” - «отправка» 
-    popup.addEventListener('submit', handleFormEditSubmit);
-    popup.addEventListener('click', handlePopupClick); // прикрепить обработчик клика
+    popupEdit.addEventListener('submit', handleFormEditSubmit(elements));
+    popupEdit.addEventListener('click', handlePopupClick); // прикрепить обработчик клика
 };
 
-const handleOpenButtonPopupNewCardClick = () => { // обработчик открытия попапа (new-card)
-    openPopup(elementPopupNewCard);
-    elementPopupNewCardForm.reset();
+const handleOpenButtonPopupNewCardClick = (elements) => { // обработчик открытия попапа (new-card)
+    return () => {
+        const popupNewCard = elements.popupNewCardElement; // Новое место
+        const popupNewCardForm = elements.popupNewCardFormElement;
+        openPopup(popupNewCard);
+        popupNewCardForm.reset();
+    };
 };
 
-const handleFormNewCardSubmit = (settings) => { // обработчик «отправки» формы (new-card)
+const handleFormNewCardSubmit = (settings, elements) => { // обработчик «отправки» формы (new-card)
     return (evt) => {
-        const popup = evt.currentTarget;
-        const card = createCard(elementPopupNewCardNameInput.value, elementPopupNewCardLinkInput.value, settings); // создать карточку
         evt.preventDefault();
-        addCard(card, elementSectionCards); // добавить карточку
+        const popup = evt.currentTarget;
+        const name = elements.popupNewCardNameInputElement.value;
+        const link = elements.popupNewCardLinkInputElement.value;
+        const templateCardsSelector = settings.templateSelector;
+        const elementSectionCards = document.querySelector(settings.sectionCardsSelector);
+        const card = new Card(name, link, templateCardsSelector, settings, handleCardImageClick); // создать экземпляр класса Card
+        const cardElement = card.generateCard(); // создать карточку
+        addCard(cardElement, elementSectionCards); // добавить карточку
         closePopup(popup);
     };
 };
 
-const addListenersPopupNewCard = (popup, openButton, settingsForCreateCard) => { // добавить обработчики событий (new-card)
-    openButton.addEventListener('click', handleOpenButtonPopupNewCardClick); // прикрепить обработчик открытия попапа (new-card)
-    popup.addEventListener('submit', handleFormNewCardSubmit(settingsForCreateCard));
-    popup.addEventListener('click', handlePopupClick);
+const addListenersPopupNewCard = (elements) => { // добавить обработчики событий (new-card)
+    const popupNewCard = elements.popupNewCardElement; // Новое место
+    const popupNewCardButton = elements.popupNewCardButtonElement;
+    popupNewCardButton.addEventListener('click', handleOpenButtonPopupNewCardClick(elements)); // прикрепить обработчик открытия попапа (new-card)
+    popupNewCard.addEventListener('submit', handleFormNewCardSubmit(settings, elements));
+    popupNewCard.addEventListener('click', handlePopupClick);
 };
 
-const clearDataPopupImage = () => { // очистить данные попапа (image)
-    elementPopupImagePhoto.alt = '';
-    elementPopupImagePhoto.src = '';
-    elementPopupImageHeading.textContent = '';
+const clearDataPopupImage = (elements) => { // очистить данные попапа (image)
+    const popupImagePhoto = elements.popupImagePhotoElement;
+    const popupImageHeading = elements.popupImageHeadingElement;
+    popupImagePhoto.alt = '';
+    popupImagePhoto.src = '';
+    popupImageHeading.textContent = '';
 };
 
-const handlePopupImageClick = (evt) => { // обработчик клика по попапу (image)
-    const object = evt.target;
-    const conditionClick = returnConditionClick(object); // условие клика
-    if (conditionClick) {
-        clearDataPopupImage(); // очистить данные попапа (image)
+const handlePopupImageClick = (elements) => { // обработчик клика по попапу (image)
+    return (evt) => {
+        const object = evt.target;
+        const conditionClick = returnConditionClick(object); // условие клика
+        if (conditionClick) {
+            clearDataPopupImage(elements); // очистить данные попапа (image)
+        };
     };
 };
 
-const addListenersPopupImage = (popup) => { // добавить обработчики событий (image)
-    popup.addEventListener('click', handlePopupImageClick); // прикрепить обработчик клика (image)
-    popup.addEventListener('click', handlePopupClick);
+const addListenersPopupImage = (elements) => { // добавить обработчики событий (image)
+    const popupImage = elements.popupImageElement; // Превью
+    popupImage.addEventListener('click', handlePopupImageClick(elements)); // прикрепить обработчик клика (image)
+    popupImage.addEventListener('click', handlePopupClick);
 };
 
 // Основной код
 initialCards.reverse().forEach((item) => { // создать шесть карточек
-    const card = createCard(item.name, item.link, settingsForCreateCard); // создать карточку
-    addCard(card, elementSectionCards); // добавить карточку
+    const templateCardsSelector = settings.templateSelector;
+    const elementSectionCards = document.querySelector(settings.sectionCardsSelector);
+    const card = new Card(item.name, item.link, templateCardsSelector, settings, handleCardImageClick); // создать экземпляр класса Card
+    const cardElement = card.generateCard(); // создать карточку
+    addCard(cardElement, elementSectionCards); // добавить карточку
 });
-addListenersPopupEdit(elementPopupEdit, elementPopupEditButton);
-addListenersPopupNewCard(elementPopupNewCard, elementPopupNewCardButton, settingsForCreateCard);
-addListenersPopupImage(elementPopupImage);
+addListenersPopupEdit(elements.popupEdit);
+addListenersPopupNewCard(elements.popupNewCard);
+addListenersPopupImage(elements.popupImage);
+
+const popupFormList = Array.from(document.querySelectorAll(settingsValidation.formSelector)); // массив форм
+popupFormList.forEach((popupForm) => {  // включить валидацию всех форм
+    const form = new FormValidator(settingsValidation, popupForm); // создать экземпляр класса FormValidator
+    form.enableValidation(); // включить валидацию формы
+});
