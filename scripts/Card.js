@@ -2,6 +2,7 @@ export class Card { // класс Card, который создаёт карто
 
     // конструктор принимает данные карточки и селектор template-элемента
     constructor(name, link, templateSelector, settings, handleCardImageClick) { // Инкапсуляция
+        // приватные поля (переменные с this) экземпляра класса Card
         this._cardsName = name; // данные карточки
         this._cardsLink = link;
         this._templateSelector = templateSelector; // селектор template-элемента
@@ -38,6 +39,7 @@ export class Card { // класс Card, который создаёт карто
     }
 
     generateCard() { // вернуть карточку
+        // приватные поля (переменные с this)
         this._elementTemplateCards = document.querySelector(this._templateSelector).content;
         this._cardSelector = this._settings.cardSelector;
         this._newCard = this._getTemplate();
