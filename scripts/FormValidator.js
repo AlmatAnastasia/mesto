@@ -2,6 +2,7 @@ export class FormValidator { // класс FormValidator, который нас�
 
     // конструктор принимает объект настроек и элемент формы
     constructor(settings, popupForm) {
+        // приватные поля (переменные с this) экземпляра класса Card
         this._settings = settings; // Инкапсуляция
         this._popupForm = popupForm;
     }
@@ -67,6 +68,7 @@ export class FormValidator { // класс FormValidator, который нас�
     }
 
     _setEventListeners() { // добавить обработчики событий форме и её полям
+        // приватные поля (переменные с this)
         this._popupInputList = Array.from(this._popupForm.querySelectorAll(this._settings.inputSelector)); // массив полей (инпутов)
         this._popupButton = this._popupForm.querySelector(this._settings.buttonSelector); //  кнопка отправки
         this._toggleButtonState(); // деактивация кнопки при первой загрузке сайта
@@ -80,6 +82,13 @@ export class FormValidator { // класс FormValidator, который нас�
             setTimeout(() => { // дождаться полной очистки формы и деактивировать кнопку
                 this._toggleButtonState();
             }, 0);
+        });
+    }
+
+    resetValidation() { // сбросить проверку (очистка ошибок и управление кнопкой при повторном открытии полей)
+        this._toggleButtonState(); // управление кнопкой
+        this._popupInputList.forEach((popupInput) => {
+            this._hideInputError(popupInput); // скрыть элемент ошибки
         });
     }
 
