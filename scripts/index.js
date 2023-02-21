@@ -29,6 +29,19 @@ const {
 } = elements;
 
 // Стрелочные функции
+const createCard = (name, link) => { // создать карточку
+    const templateCardsSelector = settings.templateSelector;
+    const card = new Card(name, link, templateCardsSelector, settings, handleCardImageClick); // создать экземпляр класса Card
+    const cardElement = card.generateCard(); // вернуть карточку
+    return cardElement;
+};
+
+const addCard = (name, link) => { // добавить карточку
+    const elementSectionCards = document.querySelector(settings.sectionCardsSelector);
+    const cardElement = createCard(name, link); // создать карточку
+    elementSectionCards.prepend(cardElement); // вставить карточку в начало элемента (метод вставки)
+};
+
 const addPreviewInfo = (card, cardImage, settings) => { // добавить изображение и заголовок попапу (image)
     // Объект настроек popups (image) - глобальня переменная
     const cardHeading = card.querySelector(settings.titleSelector).textContent;
@@ -60,8 +73,6 @@ const handleCardImageClick = (card, cardImage, settings) => { // обработ�
         openPopup(popupImage);
     };
 };
-
-const addCard = (elem, where) => where.prepend(elem); // вставить в начало элемента (метод вставки)
 
 const handleOpenButtonPopupEditClick = () => { // обработчик открытия попапа (edit)
     openPopup(popupEdit);
@@ -98,12 +109,8 @@ const handleFormNewCardSubmit = (settings) => { // обработчик «отп
         const popup = evt.currentTarget;
         const name = popupNewCardNameInput.value;
         const link = popupNewCardLinkInput.value;
-        const templateCardsSelector = settings.templateSelector;
-        const elementSectionCards = document.querySelector(settings.sectionCardsSelector);
-        const card = new Card(name, link, templateCardsSelector, settings, handleCardImageClick); // создать экземпляр класса Card
         // логика вставки и логика создания
-        const cardElement = card.createCard(); // создать карточку
-        addCard(cardElement, elementSectionCards); // добавить карточку
+        addCard(name, link); // добавить карточку
         closePopup(popup);
     };
 };
@@ -155,12 +162,8 @@ const enableValidationAllForms = () => { // включить валидацию 
 
 // Основной код
 initialCards.reverse().forEach((item) => { // создать шесть карточек
-    const templateCardsSelector = settings.templateSelector;
-    const elementSectionCards = document.querySelector(settings.sectionCardsSelector);
-    const card = new Card(item.name, item.link, templateCardsSelector, settings, handleCardImageClick); // создать экземпляр класса Card
     // логика вставки и логика создания
-    const cardElement = card.createCard(); // создать карточку
-    addCard(cardElement, elementSectionCards); // добавить карточку
+    addCard(item.name, item.link); // добавить карточку
 });
 addListenersPopupEdit();
 addListenersPopupNewCard();

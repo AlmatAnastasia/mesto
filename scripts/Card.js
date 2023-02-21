@@ -38,7 +38,7 @@ export class Card { // класс Card, который создаёт карто
         this._cardImage.addEventListener('click', this._handleCardImageClick(this._newCard, this._cardImage, this._settings)); // прикрепить обработчик просмотра изображения
     }
 
-    createCard() { // создать карточку
+    generateCard() { // вернуть карточку
         // приватные поля (переменные с this)
         this._elementTemplateCards = document.querySelector(this._templateSelector).content;
         this._cardSelector = this._settings.cardSelector;
