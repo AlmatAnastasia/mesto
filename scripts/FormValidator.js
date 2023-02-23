@@ -1,4 +1,4 @@
-export class FormValidator { // класс FormValidator, который настраивает валидацию полей формы
+export default class FormValidator { // класс FormValidator, который настраивает валидацию полей формы
 
     // конструктор принимает объект настроек и элемент формы
     constructor(settings, popupForm) {

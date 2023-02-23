@@ -1,4 +1,4 @@
-export class Card { // класс Card, который создаёт карточку с текстом и ссылкой на изображение
+export default class Card { // класс Card, который создаёт карточку с текстом и ссылкой на изображение
 
     // конструктор принимает данные карточки и селектор template-элемента
     constructor(name, link, templateSelector, settings, handleCardImageClick) { // Инкапсуляция

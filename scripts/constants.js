@@ -38,47 +38,34 @@ export const settingsForCreateCard = {
     deleteButtonSelector: '.card__delete-button',
 };
 // Добавление переменных popups (edit, new-card, image)
-const elementPopupList = document.querySelectorAll('.popup');
 const elementSectionPopups = document.querySelector('.popups');
 const elementPopupEdit = elementSectionPopups.querySelector('.popup_type_edit'); // Редактировать профиль
 const elementPopupEditForm = elementPopupEdit.querySelector('.popup__form');
-const elementPopupEditNameInput = elementPopupEdit.querySelector('.popup__input_type_name-text'); // поля формы в DOM
-const elementPopupEditJobInput = elementPopupEdit.querySelector('.popup__input_type_description-text');
 const elementPopupEditButton = document.querySelector('.profile__intro-edit-button');
-const introTitle = document.querySelector('.profile__intro-title');
-const introText = document.querySelector('.profile__intro-text');
 const elementPopupNewCard = elementSectionPopups.querySelector('.popup_type_new-card'); // Новое место
-const elementPopupNewCardNameInput = elementPopupNewCard.querySelector('.popup__input_type_name-text');
-const elementPopupNewCardLinkInput = elementPopupNewCard.querySelector('.popup__input_type_description-url');
 const elementPopupNewCardForm = elementPopupNewCard.querySelector('.popup__form');
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
-const elementPopupImage = elementSectionPopups.querySelector('.popup_type_image'); // Превью
-const elementPopupImagePhoto = elementPopupImage.querySelector('.popup__image');
-const elementPopupImageHeading = elementPopupImage.querySelector('.popup__heading');
-// Объект настроек popups (edit, new-card, image)
+// Объект элементов popups (edit, new-card)
 export const elementsForCreatePopups = {
-    popupEdit: {
-        popupListElement: elementPopupList,
-        popupEditElement: elementPopupEdit, // Редактировать профиль
-        popupEditFormElement: elementPopupEditForm,
-        popupEditNameInputElement: elementPopupEditNameInput, // поля формы в DOM
-        popupEditJobInputElement: elementPopupEditJobInput,
-        popupEditButtonElement: elementPopupEditButton,
-        introTitleElement: introTitle,
-        introTextElement: introText,
-    },
-    popupNewCard: {
-        popupNewCardElement: elementPopupNewCard, // Новое место
-        popupNewCardNameInputElement: elementPopupNewCardNameInput,
-        popupNewCardLinkInputElement: elementPopupNewCardLinkInput,
-        popupNewCardFormElement: elementPopupNewCardForm,
-        popupNewCardButtonElement: elementPopupNewCardButton,
-    },
-    popupImage: {
-        popupImageElement: elementPopupImage, // Превью
-        popupImagePhotoElement: elementPopupImagePhoto,
-        popupImageHeadingElement: elementPopupImageHeading
-    }
+    popupEditFormElement: elementPopupEditForm,
+    popupEditButtonElement: elementPopupEditButton,
+    popupNewCardFormElement: elementPopupNewCardForm,
+    popupNewCardButtonElement: elementPopupNewCardButton,
+};
+// Объект настроек popup (image)
+export const settingsForCreatePopupImage = {
+    popupImagePhotoSelector: '.popup__image',
+    popupImageHeadingSelector: '.popup__heading'
+};
+// Объект настроек popups (edit, new-card, image)
+export const settingsForCreatePopups = {
+    popupEditSelector: '.popup_type_edit', // Редактировать профиль
+    popupEditNameInputSelector: '.popup__input_type_name-text', // поля формы в DOM
+    popupEditJobInputSelector: '.popup__input_type_description-text',
+    introTitleSelector: '.profile__intro-title', // поля профиля (информация о пользователе)
+    introTextSelector: '.profile__intro-text',
+    popupNewCardSelector: '.popup_type_new-card', // Новое место
+    popupImageSelector: '.popup_type_image', // Превью
 };
 // Объект настроек для валидации форм
 export const settingsForValidation = {
