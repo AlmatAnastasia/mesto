@@ -1,31 +1,19 @@
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
-import Section from './Section.js';
-<<<<<<< HEAD
-import Popup from './Popup.js';
-=======
->>>>>>> refactor/refactor-class
-import PopupWithImage from './PopupWithImage.js';
-import PopupWithForm from './PopupWithForm.js';
-import UserInfo from './UserInfo.js';
+import Card from './components/Card.js'
+import FormValidator from './components/FormValidator.js';
+import Section from './components/Section.js';
+import PopupWithImage from './components/PopupWithImage.js';
+import PopupWithForm from './components/PopupWithForm.js';
+import UserInfo from './components/UserInfo.js';
 import {
     initialCards,
-<<<<<<< HEAD
-=======
     sectionCardsSelector,
->>>>>>> refactor/refactor-class
     settingsForCreateCard as settings,
     elementsForCreatePopups as elements,
     settingsForCreatePopupImage as settingsPopupImage,
     settingsForCreatePopups as selectors,
-<<<<<<< HEAD
-    popupFormValidators,
-    settingsForValidation as config
-=======
     settingsForValidation as config,
     popupFormValidators
->>>>>>> refactor/refactor-class
-} from './constants.js';
+} from './components/constants.js';
 // Деструктурирующее присваивание (деструктуризация объекта)
 const {
     popupEditFormElement: popupEditForm,
@@ -43,37 +31,16 @@ const {
     popupImageSelector: popupImageSelector, // Превью
 } = selectors;
 
-const {
-    popupEditSelector: popupEditSelector, // Редактировать профиль
-    popupEditNameInputSelector: popupEditNameInputSelector, // поля формы в DOM
-    popupEditJobInputSelector: popupEditJobInputSelector,
-    introTitleSelector: introTitleSelector, // поля профиля (информация о пользователе)
-    introTextSelector: introTextSelector,
-    popupNewCardSelector: popupNewCardSelector, // Новое место
-    popupImageSelector: popupImageSelector, // Превью
-} = selectors;
-
 // Стрелочные функции
-<<<<<<< HEAD
-const handleCardImageClick = (card, cardImage, settings) => { // обработчик просмотра изображения
-    return () => {
-        const instancePopupWithImage = new PopupWithImage(popupImageSelector, settingsPopupImage, card, cardImage, settings); // создать экземпляр класса Popup
-=======
 const handleCardImageClick = (card, cardImage, titleSelector) => { // обработчик просмотра изображения
     return () => {
         const instancePopupWithImage = new PopupWithImage(popupImageSelector, settingsPopupImage, card, cardImage, titleSelector); // создать экземпляр класса Popup
->>>>>>> refactor/refactor-class
         instancePopupWithImage.open();
     };
 };
 
 const createCard = (name, link) => { // создать карточку
-<<<<<<< HEAD
-    const templateCardsSelector = settings.templateSelector;
-    const instanceCard = new Card(name, link, templateCardsSelector, settings, handleCardImageClick); // создать экземпляр класса Card
-=======
     const instanceCard = new Card({ name, link, handleCardImageClick }, settings); // создать экземпляр класса Card
->>>>>>> refactor/refactor-class
     const cardElement = instanceCard.generateCard(); // вернуть карточку
     return cardElement;
 };
@@ -85,11 +52,7 @@ const initialCardList = new Section({ // создать экземпляр кл�
         const cardElement = createCard(item.name, item.link); // создать карточку
         initialCardList.addItem(cardElement); // добавить карточку
     }
-<<<<<<< HEAD
-}, settings.sectionCardsSelector);
-=======
 }, sectionCardsSelector);
->>>>>>> refactor/refactor-class
 
 const handleOpenButtonPopupEditClick = (openPopupEdit) => { // обработчик открытия попапа (edit)
     return () => openPopupEdit();
@@ -135,11 +98,7 @@ const handleFormNewCardSubmit = ({ close, setInfo }) => { // обработчи�
     return (evt) => {
         evt.preventDefault();
         const { name, link } = setInfo();
-<<<<<<< HEAD
-        const instanceSection = new Section({}, settings.sectionCardsSelector); // создать экземпляр класса Section
-=======
         const instanceSection = new Section({}, sectionCardsSelector); // создать экземпляр класса Section
->>>>>>> refactor/refactor-class
         // логика вставки и логика создания
         const cardElement = createCard(name, link); // создать карточку
         instanceSection.addItem(cardElement); // добавить карточку
@@ -165,11 +124,7 @@ const addListenersPopupNewCard = () => { // добавить обработчи�
 };
 
 const addListenerPopupImage = () => { // добавить обработчик события (image)
-<<<<<<< HEAD
-    const instancePopup = new Popup(popupImageSelector, settingsPopupImage); // создать экземпляр класса Popup
-=======
     const instancePopup = new PopupWithImage(popupImageSelector, settingsPopupImage); // создать экземпляр класса Popup
->>>>>>> refactor/refactor-class
     instancePopup.setEventListeners();
 };
 
