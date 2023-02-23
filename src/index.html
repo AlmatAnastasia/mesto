@@ -7,13 +7,6 @@
     <meta name="description" content="Сервис &quot;Место&quot;">
     <meta name="author" content="Алматаева Анастасия">
     <title>Место</title>
-    <link rel="stylesheet" href="./pages/index.css">
-    <!--
-        атрибут defer: 
-        - асинхронная загрузка скрипта
-        - запуск скрипта после того, как DOM дерево будет полностью построено (вся страница будет обработана)
-    -->
-    <script defer type="module" src="./index.js"></script>
 </head>
 
 <body class="body">
@@ -21,14 +14,15 @@
 
         <!-- Блок 1 header -->
         <header class="header">
-            <img class="header__logo" src="./images/header-logo.svg" alt="Логотип сервиса &quot;Место&quot;">
+            <img class="header__logo" src="<%=require('./images/header-logo.svg')%>"
+                alt="Логотип сервиса &quot;Место&quot;">
         </header>
 
         <main class="main">
 
             <!-- Блок 2 profile -->
             <section class="profile">
-                <img class="profile__avatar" src="./images/profile-image-avatar.jpg"
+                <img class="profile__avatar" src="<%=require('./images/profile-image-avatar.jpg')%>"
                     alt="Изображение &quot;Аватар профиля&quot;">
                 <div class="profile__intro">
                     <h1 class="profile__intro-title much-text">Моргана Пендрагон</h1>
