@@ -29,9 +29,9 @@
 <h2>Демонстрация</h2>
 <h3>Ссылка на сайт <a href="https://almatanastasia.github.io/mesto/">тут</a> !</h3>
 <p>❆ Pазрешение - 1280 пикселей</p>
-<img src="./images/Demo_index_1280.png" alt="Демо страницы index.html 1280px" width="900">
+<img src="./src/images/Demo_index_1280.png" alt="Демо страницы index.html 1280px" width="900">
 <p>❆ Pазрешение - 320 пикселей</p>
-<img src="./images/Demo_index_320.png" alt="Демо страницы index.html 320px" width="900">
+<img src="./src/images/Demo_index_320.png" alt="Демо страницы index.html 320px" width="900">
 
 <div id="file_structure"></div>
 <h2>Файловая структура</h2>
@@ -71,28 +71,28 @@
 <p>✶ Шесть карточек</p>
 <p>✶ Три формы</p>
 <p>Форма редактирования профиля</p>
-<img src="./images/Demo_form_edit.png" alt="Демо форма &quot;Редактировать профиль&quot;" width="900">
+<img src="./src/images/Demo_form_edit.png" alt="Демо форма &quot;Редактировать профиль&quot;" width="900">
 <p>Форма добавления новой карточки</p>
-<img src="./images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900">
+<img src="./src/images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900">
 <p>Форма просмотра фотографий</p>
-<img src="./images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900">
+<img src="./src/images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900">
 <p>✶ Добавление карточки</p>
-<img src="./images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="900"><br>
-<img src="./images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="900">
+<img src="./src/images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="900"><br>
+<img src="./src/images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="900">
 <p>✶ Удаление карточки</p>
-<img src="./images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="900"><br>
-<img src="./images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="900">
+<img src="./src/images/Demo_deleteCard_before.png" alt="Удаление карточки &quot;До&quot;" width="900"><br>
+<img src="./src/images/Demo_deleteCard_after.png" alt="Удаление карточки &quot;После&quot;" width="900">
 <p>✶ Лайк карточки</p>
-<img src="./images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="900"><br>
-<img src="./images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="900">
+<img src="./src/images/Demo_addLike_before.png" alt="Лайк карточки &quot;До&quot;" width="900"><br>
+<img src="./src/images/Demo_addLike_after.png" alt="Лайк карточки &quot;После&quot;" width="900">
 <p>✶ Плавное открытие и закрытие попапов</p>
 <p>✶ Лайв-валидация («Живая» валидация)</p>
 </p>Валидация формы «Редактировать профиль»</p>
-<img src="./images/Demo_editValidation_before.png" alt="Валидация формы &quot;Редактировать профиль&quot;" width="900"><br>
-<img src="./images/Demo_editValidation_after.png" alt="Валидация формы &quot;Редактировать профиль&quot;" width="900">
+<img src="./src/images/Demo_editValidation_before.png" alt="Валидация формы &quot;Редактировать профиль&quot;" width="900"><br>
+<img src="./src/images/Demo_editValidation_after.png" alt="Валидация формы &quot;Редактировать профиль&quot;" width="900">
 </p>Валидация формы «Новое место»</p>
-<img src="./images/Demo_newCardValidation_before.png" alt="Валидация формы &quot;Новое место&quot;" width="900"><br>
-<img src="./images/Demo_newCardValidation_after.png" alt="Валидация формы &quot;Новое место&quot;" width="900">
+<img src="./src/images/Demo_newCardValidation_before.png" alt="Валидация формы &quot;Новое место&quot;" width="900"><br>
+<img src="./src/images/Demo_newCardValidation_after.png" alt="Валидация формы &quot;Новое место&quot;" width="900">
 <p>Три состояния кнопки отправки формы: обычное, при наведении и disabled</p>
 <p>Попап закрывается по в клику любом месте вне этого окна и по нажатию на Esc</p>
 <p>Закрытие попапа кликом на оверлей</p>
