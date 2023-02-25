@@ -11,12 +11,13 @@ export default class Card { // класс Card, который создаёт к
         this._cardsLink = link;
         this._handleCardImageClick = handleCardImageClick;
         this._templateSelector = templateSelector; // селектор template-элемента
-        this._elementTemplateCards = document.querySelector(templateSelector).content;
         this._cardSelector = cardSelector;
-        this._imageSelector = imageSelector;
         this._titleSelector = titleSelector;
-        this._likeButtonSelector = likeButtonSelector;
-        this._deleteButtonSelector = deleteButtonSelector;
+        this._newCard = this._getTemplate();
+        this._cardImage = this._newCard.querySelector(imageSelector);
+        this._cardTitle = this._newCard.querySelector(titleSelector);
+        this._likeButton = this._newCard.querySelector(likeButtonSelector);
+        this._deleteButton = this._newCard.querySelector(deleteButtonSelector);
     }
 
     // приватные методы для каждого обработчика
@@ -49,11 +50,6 @@ export default class Card { // класс Card, который создаёт к
 
     generateCard() { // вернуть карточку
         // приватные поля (переменные с this)
-        this._newCard = this._getTemplate();
-        this._cardImage = this._newCard.querySelector(this._imageSelector);
-        this._cardTitle = this._newCard.querySelector(this._titleSelector);
-        this._likeButton = this._newCard.querySelector(this._likeButtonSelector);
-        this._deleteButton = this._newCard.querySelector(this._deleteButtonSelector);
         this._cardImage.alt = `Фотография - ${this._cardsName}`;
         this._cardImage.src = this._cardsLink;
         this._cardTitle.textContent = this._cardsName;

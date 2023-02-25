@@ -4,45 +4,45 @@ export default class Popup { // класс Popup, который отвечае�
     constructor(popupSelector) {
         // приватные поля (переменные с this) экземпляра класса Popup
         this._popup = document.querySelector(popupSelector);
+        this._handleEscClose = this._handleEscClose.bind(this); // привязать функцию методом bind (постоянная ссылка для обработчика)
         this._openSelector = 'popup_opened';
+        this._closeButtonSelector = 'popup__close-button';
     }
 
     // приватные методы
-    _handleEscClose() { // закрыть попап клавишей Esc (обработчик нажатия на клавишу Esc)
-        return (evt) => {
-            if (evt.key === 'Escape') {
-                this.close();
-            };
-        }
-    }
-
-    _closePopupClick(object, func, universalСlass) { // закрыть попап при нажатии (на кнопку или overlay)
-        if (object.classList.contains(universalСlass)) {
+    _handleEscClose(evt) { // закрыть попап клавишей Esc (обработчик нажатия на клавишу Esc)
+        if (evt.key === 'Escape') {
             this.close();
-            func();
         };
     }
 
-    _handlePopupClick(func) { // обработчик нажатия на попап
+    _closePopupClick(object, funcClearData, universalСlass) { // закрыть попап при нажатии (на кнопку или overlay)
+        if (object.classList.contains(universalСlass)) {
+            this.close();
+            funcClearData(); // очистить данные попапа (image)
+        };
+    }
+
+    _handlePopupClick(funcClearData) { // обработчик нажатия на попап
         return (evt) => {
             const object = evt.target;
-            this._closePopupClick(object, func, 'popup_opened'); // закрыть попап при нажатии на overlay
-            this._closePopupClick(object, func, 'popup__close-button'); // закрыть попап при нажатии на кнопку
+            this._closePopupClick(object, funcClearData, this._openSelector); // закрыть попап при нажатии на overlay
+            this._closePopupClick(object, funcClearData, this._closeButtonSelector); // закрыть попап при нажатии на кнопку
         }
     };
 
     // публичные методы
     open() { // открыть попап
         this._popup.classList.add(this._openSelector);
-        document.addEventListener('keyup', this._handleEscClose()); // прикрепить обработчик нажатия на клавишу Esc
+        document.addEventListener('keyup', this._handleEscClose); // прикрепить обработчик нажатия на клавишу Esc
     }
 
     close() { // закрыть попап
         this._popup.classList.remove(this._openSelector);
-        document.removeEventListener('keyup', this._handleEscClose()); // удалить событие keyup
+        document.removeEventListener('keyup', this._handleEscClose); // удалить обработчик события keyup
     }
 
-    setEventListeners(func = function () { }) { // добавить слушатель клика иконке закрытия попапа
-        this._popup.addEventListener('click', this._handlePopupClick(func)); // прикрепить обработчик нажатия на попап
+    setEventListeners(funcClearData = function () { }) { // добавить слушатель клика иконке закрытия попапа
+        this._popup.addEventListener('click', this._handlePopupClick(funcClearData)); // прикрепить обработчик нажатия на попап
     }
 }

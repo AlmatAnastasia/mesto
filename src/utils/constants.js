@@ -38,16 +38,16 @@ export const settingsForCreateCard = {
 // Добавление переменных popups (edit, new-card, image)
 const elementSectionPopups = document.querySelector('.popups');
 const elementPopupEdit = elementSectionPopups.querySelector('.popup_type_edit'); // Редактировать профиль
-const elementPopupEditForm = elementPopupEdit.querySelector('.popup__form');
+const elementPopupEditNameInput = elementPopupEdit.querySelector('.popup__input_type_name-text'); // поля формы в DOM
+const elementPopupEditJobInput = elementPopupEdit.querySelector('.popup__input_type_description-text');
 const elementPopupEditButton = document.querySelector('.profile__intro-edit-button');
 const elementPopupNewCard = elementSectionPopups.querySelector('.popup_type_new-card'); // Новое место
-const elementPopupNewCardForm = elementPopupNewCard.querySelector('.popup__form');
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 // Объект элементов popups (edit, new-card)
 export const elementsForCreatePopups = {
-    popupEditFormElement: elementPopupEditForm,
+    popupEditNameInput: elementPopupEditNameInput,
+    popupEditJobInput: elementPopupEditJobInput,
     popupEditButtonElement: elementPopupEditButton,
-    popupNewCardFormElement: elementPopupNewCardForm,
     popupNewCardButtonElement: elementPopupNewCardButton,
 };
 // Объект настроек popup (image)
@@ -58,11 +58,12 @@ export const settingsForCreatePopupImage = {
 // Объект настроек popups (edit, new-card, image)
 export const settingsForCreatePopups = {
     popupEditSelector: '.popup_type_edit', // Редактировать профиль
-    popupEditNameInputSelector: '.popup__input_type_name-text', // поля формы в DOM
-    popupEditJobInputSelector: '.popup__input_type_description-text',
     introTitleSelector: '.profile__intro-title', // поля профиля (информация о пользователе)
     introTextSelector: '.profile__intro-text',
     popupNewCardSelector: '.popup_type_new-card', // Новое место
+    popupNameInputSelector: 'popup__input_type_name-text', // поля формы в DOM
+    popupEditJobInputSelector: 'popup__input_type_description-text',
+    popupNewCardLinkInputSelector: 'popup__input_type_description-url',
     popupImageSelector: '.popup_type_image', // Превью
 };
 // Объект настроек для валидации форм

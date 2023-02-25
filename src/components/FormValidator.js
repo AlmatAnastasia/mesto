@@ -5,6 +5,15 @@ export default class FormValidator { // класс FormValidator, который
         // приватные поля (переменные с this) экземпляра класса Card
         this._settings = settings; // Инкапсуляция
         this._popupForm = popupForm;
+        this._inputSelector = this._settings.inputSelector;
+        this._buttonSelector = this._settings.buttonSelector;
+        this._inactiveButtonClass = this._settings.buttonClass.inactiveButtonClass;
+        this._indicatorClass = this._settings.buttonClass.indicatorClass;
+        this._inactiveIndicatorClass = this._settings.buttonClass.inactiveIndicatorClass;
+        this._inputErrorClass = this._settings.errorClass.inputErrorClass;
+        this._spanErrorClass = this._settings.errorClass.spanErrorClass;
+        this._popupInputList = Array.from(this._popupForm.querySelectorAll(this._inputSelector)); // массив полей (инпутов)
+        this._popupButton = this._popupForm.querySelector(this._buttonSelector); //  кнопка отправки
     }
 
     // приватные методы
@@ -15,16 +24,16 @@ export default class FormValidator { // класс FormValidator, который
     } // вернуть true, если есть хотя бы одно поле, которое не прошло валидацию
 
     _makeButtonInactive() { // сделать кнопку неактивной
-        this._popupButton.classList.add(this._settings.buttonClass.inactiveButtonClass);
-        this._popupButton.classList.add(this._settings.buttonClass.inactiveIndicatorClass);
-        this._popupButton.classList.remove(this._settings.buttonClass.indicatorClass);
+        this._popupButton.classList.add(this._inactiveButtonClass);
+        this._popupButton.classList.add(this._inactiveIndicatorClass);
+        this._popupButton.classList.remove(this._indicatorClass);
         this._popupButton.disabled = true;
     }
 
     _makeButtonActive() { // сделать кнопку активной
-        this._popupButton.classList.remove(this._settings.buttonClass.inactiveButtonClass);
-        this._popupButton.classList.remove(this._settings.buttonClass.inactiveIndicatorClass);
-        this._popupButton.classList.add(this._settings.buttonClass.indicatorClass);
+        this._popupButton.classList.remove(this._inactiveButtonClass);
+        this._popupButton.classList.remove(this._inactiveIndicatorClass);
+        this._popupButton.classList.add(this._indicatorClass);
         this._popupButton.disabled = false;
     }
 
@@ -38,23 +47,23 @@ export default class FormValidator { // класс FormValidator, который
 
     _showErrorMessage(popupInput, errorMessage) { // показать сообщение об ошибке
         const error = this._popupForm.querySelector(`.${popupInput.id}-error`); // элемент ошибки (span)
-        error.classList.add(this._settings.errorClass.spanErrorClass);
+        error.classList.add(this._spanErrorClass);
         error.textContent = errorMessage;
     }
 
     _showInputError(popupInput, errorMessage) { // показать элемент ошибки
-        popupInput.classList.add(this._settings.errorClass.inputErrorClass); // добавить класс с ошибкой
+        popupInput.classList.add(this._inputErrorClass); // добавить класс с ошибкой
         this._showErrorMessage(popupInput, errorMessage);
     }
 
     _hideErrorMessage(popupInput) { // скрыть сообщение об ошибке
         const error = this._popupForm.querySelector(`.${popupInput.id}-error`); // элемент ошибки (span)
-        error.classList.remove(this._settings.errorClass.spanErrorClass);
+        error.classList.remove(this._spanErrorClass);
         error.textContent = '';
     }
 
     _hideInputError(popupInput) { // скрыть элемент ошибки
-        popupInput.classList.remove(this._settings.errorClass.inputErrorClass); // удалить класс с ошибкой
+        popupInput.classList.remove(this._inputErrorClass); // удалить класс с ошибкой
         this._hideErrorMessage(popupInput);
     }
 
@@ -69,8 +78,6 @@ export default class FormValidator { // класс FormValidator, который
 
     _setEventListeners() { // добавить обработчики событий форме и её полям
         // приватные поля (переменные с this)
-        this._popupInputList = Array.from(this._popupForm.querySelectorAll(this._settings.inputSelector)); // массив полей (инпутов)
-        this._popupButton = this._popupForm.querySelector(this._settings.buttonSelector); //  кнопка отправки
         this._toggleButtonState(); // деактивация кнопки при первой загрузке сайта
         this._popupInputList.forEach((popupInput) => {
             popupInput.addEventListener('input', () => {
