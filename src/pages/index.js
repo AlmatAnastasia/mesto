@@ -52,12 +52,8 @@ const createCard = (name, link) => { // создать карточку
 const handleOpenButtonPopupEditClick = () => { // обработчик открытия попапа (edit)
     return () => {
         const { name, job } = instanceUserInfo.getUserInfo();
-        const conditionOpen = handleOpenButtonPopupEditClick.someValue === 0; // первое открытие попапа
-        if (!conditionOpen) {
-            popupEditNameInput.value = name; // добавить данные пользователя
-            popupEditJobInput.value = job;
-        }
-        handleOpenButtonPopupEditClick.someValue += 1; // счетчик
+        popupEditNameInput.value = name; // добавить данные пользователя
+        popupEditJobInput.value = job;
         instancePopupWithFormEdit.open();
     };
 };
@@ -75,7 +71,6 @@ const handleFormEditSubmit = ({ close, submitHandler }) => { // обработч
 
 const addListenersPopupEdit = () => { // добавить обработчики событий (edit)
     instancePopupWithFormEdit.setEventListeners();
-    handleOpenButtonPopupEditClick.someValue = 0; // счетчик
     popupEditButton.addEventListener('click', handleOpenButtonPopupEditClick()); // прикрепить обработчик открытия попапа (edit)
 };
 
