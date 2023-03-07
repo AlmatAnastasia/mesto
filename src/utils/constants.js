@@ -1,30 +1,4 @@
 // Добавление переменных card
-export const initialCards = [ // массив карточек
-    {
-        name: 'Дворец земледельцев',
-        link: 'https://images.unsplash.com/photo-1591390133438-532f27239ff3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=878&q=80'
-    },
-    {
-        name: 'Петергоф',
-        link: 'https://images.unsplash.com/photo-1577696209178-253df230b5f0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-    },
-    {
-        name: 'Мурманская область',
-        link: 'https://images.unsplash.com/photo-1610554121420-7e4afe41d616?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80'
-    },
-    {
-        name: 'Гора Эльбрус',
-        link: 'https://images.unsplash.com/photo-1626518139514-65676cf25bac?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80'
-    },
-    {
-        name: 'Домбай',
-        link: 'https://images.unsplash.com/photo-1617911478446-c7f1dd96966e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=435&q=80'
-    },
-    {
-        name: 'Куршская коса',
-        link: 'https://images.unsplash.com/photo-1645127434513-63c301ebf6de?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1033&q=80'
-    }
-];
 export const sectionCardsSelector = '.cards__list';
 // Объект настроек для создания карточки
 export const settingsForCreateCard = {
@@ -44,6 +18,8 @@ const elementPopupEditButton = document.querySelector('.profile__intro-edit-butt
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 const elementPopupUpdateAvatarButton = document.querySelector('.profile__avatar-edit-button');
 const elementProfileAvatar = document.querySelector('.profile__avatar');
+const elementIntroTitle = document.querySelector('.profile__intro-title');
+const elementIntroText = document.querySelector('.profile__intro-text');
 // Объект элементов popups (edit, new-card, update-avatar)
 export const elementsForCreatePopups = {
     popupEditNameInput: elementPopupEditNameInput,
@@ -51,7 +27,9 @@ export const elementsForCreatePopups = {
     popupEditButtonElement: elementPopupEditButton,
     popupNewCardButtonElement: elementPopupNewCardButton,
     popupUpdateAvatarButtonElement: elementPopupUpdateAvatarButton,
-    profileAvatarElement: elementProfileAvatar
+    profileAvatarElement: elementProfileAvatar,
+    introTitleElement: elementIntroTitle,
+    introTextElement: elementIntroText
 };
 // Объект настроек popup (image)
 export const settingsForCreatePopupImage = {
