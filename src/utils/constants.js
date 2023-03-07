@@ -41,7 +41,6 @@ const elementPopupEdit = elementSectionPopups.querySelector('.popup_type_edit');
 const elementPopupEditNameInput = elementPopupEdit.querySelector('.popup__input_type_name-text'); // поля формы в DOM
 const elementPopupEditJobInput = elementPopupEdit.querySelector('.popup__input_type_description-text');
 const elementPopupEditButton = document.querySelector('.profile__intro-edit-button');
-const elementPopupNewCard = elementSectionPopups.querySelector('.popup_type_new-card'); // Новое место
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 // Объект элементов popups (edit, new-card)
 export const elementsForCreatePopups = {

@@ -108,6 +108,17 @@
                         class="popup__close-button indicator"></button>
                 </div>
             </div>
+            <div class="popup popup_type_delete">
+                <div class="popup__container">
+                    <form name="popup-form_type_delete" class="popup__form" novalidate>
+                        <h3 class="popup__heading">Вы уверены?</h3>
+                        <button type="submit" name="submit" aria-label="Кнопка отправки формы &quot;Сохранить&quot;"
+                            class="popup__submit popup__submit_delete indicator">Да</button>
+                    </form>
+                    <button type="button" name="close-button" aria-label="Кнопка &quot;Закрыть&quot;"
+                        class="popup__close-button indicator"></button>
+                </div>
+            </div>
         </section>
 
         <template class="cards-template">
@@ -115,8 +126,11 @@
                 <img class="card__image indicator" src="Ссылка на фотографию места" alt="Фотография места">
                 <div class="card__item">
                     <h2 class="card__item-title much-text"></h2>
-                    <button type="button" name="like-button" aria-label="Кнопка &quot;Лайк&quot;"
-                        class="card__item-like-button indicator"></button>
+                    <div class="card__item-like-container">
+                        <button type="button" name="like-button" aria-label="Кнопка &quot;Лайк&quot;"
+                            class="card__item-like-button indicator"></button>
+                        <label type="text" name="like-number" class="card__item-like-number"></label>
+                    </div>
                 </div>
                 <button type="button" name="delete-button" aria-label="Кнопка &quot;Удалить&quot;"
                     class="card__delete-button indicator"></button>
