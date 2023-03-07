@@ -27,6 +27,7 @@
 
 /* подключаем стили блока profile */
 @import url("../blocks/profile/profile.css");
+@import url("../blocks/profile/__avatar-edit-button/profile__avatar-edit-button.css");
 @import url("../blocks/profile/__avatar/profile__avatar.css");
 @import url("../blocks/profile/__intro/profile__intro.css");
 @import url("../blocks/profile/__intro-title/profile__intro-title.css");

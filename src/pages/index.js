@@ -21,6 +21,8 @@ const {
     popupEditJobInput: popupEditJobInput,
     popupEditButtonElement: popupEditButton,
     popupNewCardButtonElement: popupNewCardButton,
+    popupUpdateAvatarButtonElement: popupUpdateAvatarButton,
+    profileAvatarElement: profileAvatar
 } = elements;
 const {
     popupEditSelector: popupEditSelector, // Редактировать профиль
@@ -30,6 +32,8 @@ const {
     popupNameInputSelector: popupNameInputSelector, // поля формы в DOM
     popupEditJobInputSelector: popupEditJobInputSelector,
     popupNewCardLinkInputSelector: popupNewCardLinkInputSelector,
+    popupUpdateAvatarSelector: popupUpdateAvatarSelector,
+    popupUpdateAvatarInputSelector: popupUpdateAvatarInputSelector,
     popupImageSelector: popupImageSelector, // Превью
 } = selectors;
 
@@ -96,6 +100,24 @@ const addListenersPopupNewCard = () => { // добавить обработчи�
     popupNewCardButton.addEventListener('click', handleOpenButtonPopupNewCardClick()); // прикрепить обработчик открытия попапа (new-card)
 };
 
+const handleOpenButtonPopupUpdateAvatarClick = () => { // обработчик открытия попапа (update-avatar)
+    return () => instancePopupWithFormUpdateAvatar.open();
+};
+
+const handleFormUpdateAvatarSubmit = ({ close, submitHandler }) => { // обработчик «отправки» формы (update-avatar)
+    return (evt) => {
+        evt.preventDefault();
+        const popupValues = submitHandler();
+        profileAvatar.src = popupValues[popupUpdateAvatarInputSelector];
+        close();
+    }
+};
+
+const addListenersPopupUpdateAvatar = () => { // добавить обработчики событий (update-avatar)
+    instancePopupWithFormUpdateAvatar.setEventListeners();
+    popupUpdateAvatarButton.addEventListener('click', handleOpenButtonPopupUpdateAvatarClick()); // прикрепить обработчик открытия попапа (new-card)
+};
+
 const addListenerPopupImage = () => { // добавить обработчик события (image)
     instancePopupWithImage.setEventListeners();
 };
@@ -121,6 +143,11 @@ const instancePopupWithFormNewCard = new PopupWithForm(
     handleFormNewCardSubmit,
     popupFormValidators // объект экземпляров класса FormValidator
 ); // создать экземпляр класса PopupWithForm (new-card)
+const instancePopupWithFormUpdateAvatar = new PopupWithForm(
+    popupUpdateAvatarSelector,
+    handleFormUpdateAvatarSubmit,
+    popupFormValidators // объект экземпляров класса FormValidator
+); // создать экземпляр класса PopupWithForm (update-avatar)
 const instancePopupWithImage = new PopupWithImage(popupImageSelector, settingsPopupImage); // создать экземпляр класса PopupWithImage
 const instanceUserInfo = new UserInfo({ introTitleSelector, introTextSelector }); // создать экземпляр класса UserInfo
 const instanceSection = new Section({ // создать экземпляр класса Section
@@ -136,5 +163,6 @@ const instanceSection = new Section({ // создать экземпляр кл�
 instanceSection.renderItems(); // создать шесть карточек
 addListenersPopupEdit();
 addListenersPopupNewCard();
+addListenersPopupUpdateAvatar();
 addListenerPopupImage();
 enableValidationAllForms();

@@ -22,8 +22,11 @@
 
             <!-- Блок 2 profile -->
             <section class="profile">
-                <img class="profile__avatar" src="<%=require('./images/profile-image-avatar.jpg')%>"
-                    alt="Изображение &quot;Аватар профиля&quot;">
+                <button type="button" name="edit-button" aria-label="Кнопка &quot;Редактировать&quot;"
+                    class="profile__avatar-edit-button indicator">
+                    <img class="profile__avatar" src="<%=require('./images/profile-image-avatar.jpg')%>"
+                        alt="Изображение &quot;Аватар профиля&quot;">
+                </button>
                 <div class="profile__intro">
                     <h1 class="profile__intro-title much-text">Моргана Пендрагон</h1>
                     <button type="button" name="edit-button" aria-label="Кнопка &quot;Редактировать&quot;"
@@ -114,6 +117,26 @@
                         <h3 class="popup__heading">Вы уверены?</h3>
                         <button type="submit" name="submit" aria-label="Кнопка отправки формы &quot;Сохранить&quot;"
                             class="popup__submit popup__submit_delete indicator">Да</button>
+                    </form>
+                    <button type="button" name="close-button" aria-label="Кнопка &quot;Закрыть&quot;"
+                        class="popup__close-button indicator"></button>
+                </div>
+            </div>
+            <div class="popup popup_type_update-avatar">
+                <div class="popup__container">
+                    <form name="popup-form_type_update-avatar" class="popup__form" novalidate>
+                        <h3 class="popup__heading">Обновить аватар</h3>
+                        <fieldset class="popup__info">
+                            <div class="popup__cell">
+                                <input type="url" id="popup-update-avatar-description-url"
+                                    name="popup__input_type_description-url"
+                                    class="popup__input popup__input_type_description-url"
+                                    placeholder="Ссылка на новое изображение аватара" required>
+                                <span class="popup-update-avatar-description-url-error"></span>
+                            </div>
+                        </fieldset>
+                        <button type="submit" name="submit" aria-label="Кнопка отправки формы &quot;Создать&quot;"
+                            class="popup__submit indicator">Создать</button>
                     </form>
                     <button type="button" name="close-button" aria-label="Кнопка &quot;Закрыть&quot;"
                         class="popup__close-button indicator"></button>

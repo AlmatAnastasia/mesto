@@ -42,19 +42,23 @@ const elementPopupEditNameInput = elementPopupEdit.querySelector('.popup__input_
 const elementPopupEditJobInput = elementPopupEdit.querySelector('.popup__input_type_description-text');
 const elementPopupEditButton = document.querySelector('.profile__intro-edit-button');
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
-// Объект элементов popups (edit, new-card)
+const elementPopupUpdateAvatarButton = document.querySelector('.profile__avatar-edit-button');
+const elementProfileAvatar = document.querySelector('.profile__avatar');
+// Объект элементов popups (edit, new-card, update-avatar)
 export const elementsForCreatePopups = {
     popupEditNameInput: elementPopupEditNameInput,
     popupEditJobInput: elementPopupEditJobInput,
     popupEditButtonElement: elementPopupEditButton,
     popupNewCardButtonElement: elementPopupNewCardButton,
+    popupUpdateAvatarButtonElement: elementPopupUpdateAvatarButton,
+    profileAvatarElement: elementProfileAvatar
 };
 // Объект настроек popup (image)
 export const settingsForCreatePopupImage = {
     popupImagePhotoSelector: '.popup__image',
     popupImageHeadingSelector: '.popup__heading'
 };
-// Объект настроек popups (edit, new-card, image)
+// Объект настроек popups (edit, new-card, update-avatar, image)
 export const settingsForCreatePopups = {
     popupEditSelector: '.popup_type_edit', // Редактировать профиль
     introTitleSelector: '.profile__intro-title', // поля профиля (информация о пользователе)
@@ -63,6 +67,8 @@ export const settingsForCreatePopups = {
     popupNameInputSelector: 'popup__input_type_name-text', // поля формы в DOM
     popupEditJobInputSelector: 'popup__input_type_description-text',
     popupNewCardLinkInputSelector: 'popup__input_type_description-url',
+    popupUpdateAvatarSelector: '.popup_type_update-avatar',
+    popupUpdateAvatarInputSelector: 'popup__input_type_description-url',
     popupImageSelector: '.popup_type_image', // Превью
 };
 // Объект настроек для валидации форм
