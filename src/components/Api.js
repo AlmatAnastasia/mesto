@@ -18,6 +18,10 @@ export default class Api { // класс Api, который загружает 
     }
 
     // публичные методы
+    getPersonalToken() {
+        return this._authorization;
+    }
+
     getInitialCards() { // загрузить карточки с сервера
         return fetch('https://nomoreparties.co/v1/cohort-61/cards', {
             headers: {
@@ -43,7 +47,7 @@ export default class Api { // класс Api, который загружает 
 
     }
 
-    editProfileInfo() { // редактировать профиль
+    editProfileInfo(name, about) { // редактировать профиль
         return fetch('https://nomoreparties.co/v1/cohort-61/users/me', {
             method: 'PATCH',
             headers: {
@@ -51,8 +55,26 @@ export default class Api { // класс Api, который загружает 
                 'Content-Type': this._type
             },
             body: JSON.stringify({
-                name: 'Моргана Пендрагон',
-                about: 'Верховная жрица, исследователь'
+                name: name,
+                about: about
+            })
+        })
+
+            .then(res => { // обработать результаты
+                return this._checkForErrors(res);
+            })
+
+    }
+
+    editProfileAvatar(avatar) { // редактировать аватар профиля
+        return fetch('https://nomoreparties.co/v1/cohort-61/users/me/avatar ', {
+            method: 'PATCH',
+            headers: {
+                authorization: this._authorization,
+                'Content-Type': this._type
+            },
+            body: JSON.stringify({
+                avatar: avatar
             })
         })
 

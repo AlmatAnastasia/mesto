@@ -6,6 +6,7 @@ export const settingsForCreateCard = {
     cardSelector: '.card',
     imageSelector: '.card__image',
     titleSelector: '.card__item-title',
+    labelLikeSelector: '.card__item-like-number',
     likeButtonSelector: '.card__item-like-button',
     deleteButtonSelector: '.card__delete-button',
 };

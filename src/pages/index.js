@@ -39,9 +39,7 @@ const {
     popupImageSelector: popupImageSelector, // Превью
 } = selectors;
 
-// Профиль
-
-// Стрелочные функции
+// Взаимодействие с сервером
 const addProfileInfo = () => { // добавить информацию о пользователе с сервера
     api
         .getProfileInfo()
@@ -56,6 +54,43 @@ const addProfileInfo = () => { // добавить информацию о по�
         });
 }
 
+// Стрелочные функции
+const handleCardImageClick = (card, cardImage, titleSelector) => { // обработчик просмотра изображения
+    return () => {
+        const name = card.querySelector(titleSelector).textContent;
+        const link = cardImage.src;
+        const description = cardImage.alt;
+        instancePopupWithImage.open(name, link, description);
+    };
+};
+
+const handleLikeButtonClick = (evt) => { // обработчик лайка карточки
+    const likeButton = evt.target;
+    likeButton.classList.toggle('card__item-like-button_active'); // лайк карточки
+};
+
+const handleDeleteButtonClick = (newCard) => { // клик на удаление
+    return () => {
+        newCard.remove(); // удалить карточку
+    };
+};
+
+const createCard = (likes, _id, name, link, owner, createdAt) => { // создать карточку
+    const personalToken = api.getPersonalToken();
+    const instanceCard = new Card({
+        data: { likes, _id, name, link, owner, createdAt, personalToken }, // данные карточки (включая информацию по лайкам)
+        methods: {
+            handleCardImageClick, // обработчик просмотра изображения
+            handleLikeButtonClick, // обработчик лайка карточки
+            handleDeleteButtonClick, // обработчик удаления карточки
+        },
+        settings
+    }); // создать экземпляр класса Card
+    const cardElement = instanceCard.generateCard(); // вернуть карточку
+    return cardElement;
+};
+
+// Взаимодействие с сервером
 const addCards = async () => { // загрузить карточки с сервера
     const items = await api
         .getInitialCards()
@@ -69,37 +104,32 @@ const addCards = async () => { // загрузить карточки с сер�
         renderer: (item) => {
             // логика вставки и логика создания
             const { likes, _id, name, link, owner, createdAt } = item;
-            const cardElement = createCard(name, link); // создать карточку
+            const cardElement = createCard(likes, _id, name, link, owner, createdAt); // создать карточку
             instanceSection.addItem(cardElement); // добавить карточку
         }
     }, sectionCardsSelector);
     instanceSection.renderItems();
 }
 
-const changeProfileInfo = () => { // изменить собсвенную информацию (данные профиля) на сервере
+const changeProfileInfo = (name, about) => { // изменить собсвенную информацию (данные профиля) на сервере
     api
-        .editProfileInfo()
+        .editProfileInfo(name, about)
         .then((res => { return res; }))
         .catch((error) => { // обработать ошибки
             console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
         });
 }
 
-const handleCardImageClick = (card, cardImage, titleSelector) => { // обработчик просмотра изображения
-    return () => {
-        const name = card.querySelector(titleSelector).textContent;
-        const link = cardImage.src;
-        const description = cardImage.alt;
-        instancePopupWithImage.open(name, link, description);
-    };
-};
+const changeProfileAvatar = (avatar) => {  // изменить собсвенную информацию (аватар пользователя)
+    api
+        .editProfileAvatar(avatar)
+        .then((res => { return res; }))
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        });
+}
 
-const createCard = (name, link) => { // создать карточку
-    const instanceCard = new Card({ name, link, handleCardImageClick }, settings); // создать экземпляр класса Card
-    const cardElement = instanceCard.generateCard(); // вернуть карточку
-    return cardElement;
-};
-
+// Стрелочные функции
 const handleOpenButtonPopupEditClick = () => { // обработчик открытия попапа (edit)
     return () => {
         const { name, job } = instanceUserInfo.getUserInfo();
@@ -116,6 +146,7 @@ const handleFormEditSubmit = ({ close, submitHandler }) => { // обработч
         const popupEditName = popupValues[popupNameInputSelector];
         const popupEditJob = popupValues[popupEditJobInputSelector];
         instanceUserInfo.setUserInfo(popupEditName, popupEditJob);
+        changeProfileInfo(popupEditName, popupEditJob);
         close();
     }
 };
@@ -136,7 +167,7 @@ const handleFormNewCardSubmit = ({ close, submitHandler }) => { // обрабо�
         const name = popupValues[popupNameInputSelector];
         const link = popupValues[popupNewCardLinkInputSelector];
         // логика вставки и логика создания
-        const cardElement = createCard(name, link); // создать карточку
+        // const cardElement = createCard(likes, _id, name, link, owner, createdAt); // создать карточку
         instanceSection.addItem(cardElement); // добавить карточку
         close();
     }
@@ -156,6 +187,7 @@ const handleFormUpdateAvatarSubmit = ({ close, submitHandler }) => { // обра
         evt.preventDefault();
         const popupValues = submitHandler();
         profileAvatar.src = popupValues[popupUpdateAvatarInputSelector];
+        changeProfileAvatar(popupValues[popupUpdateAvatarInputSelector]);
         close();
     }
 };
@@ -208,7 +240,6 @@ const instanceUserInfo = new UserInfo({ introTitleSelector, introTextSelector })
 // Основной код
 addProfileInfo();
 addCards();
-changeProfileInfo();
 addListenersPopupEdit();
 addListenersPopupNewCard();
 addListenersPopupUpdateAvatar();
