@@ -62,14 +62,6 @@ export default class Api { // класс Api, который загружает 
             })
     }
 
-    addPersonalID(personalID) { // добавить личный id
-        this._personalID = personalID;
-    }
-
-    returnPersonalID() { // вернуть личный id
-        return this._personalID;
-    }
-
     editProfileInfo(name, about) { // редактировать профиль
         return fetch(this._personalURL, {
             method: 'PATCH',

@@ -1,3 +1,8 @@
+// Функционал смены текста в кнопке
+export const renderLoading = (text) => {
+    (text === 'Сохранить') ? text = 'Сохранение...' : text = 'Сохранить';
+    return text;
+};
 // Добавление переменных card
 export const sectionCardsSelector = '.cards__list';
 // Объект настроек для создания карточки
@@ -19,8 +24,6 @@ const elementPopupEditButton = document.querySelector('.profile__intro-edit-butt
 const elementPopupNewCardButton = document.querySelector('.profile__add-button');
 const elementPopupUpdateAvatarButton = document.querySelector('.profile__avatar-edit-button');
 const elementProfileAvatar = document.querySelector('.profile__avatar');
-const elementIntroTitle = document.querySelector('.profile__intro-title');
-const elementIntroText = document.querySelector('.profile__intro-text');
 // Объект элементов popups (edit, new-card, update-avatar)
 export const elementsForCreatePopups = {
     popupEditNameInput: elementPopupEditNameInput,
@@ -29,8 +32,6 @@ export const elementsForCreatePopups = {
     popupNewCardButtonElement: elementPopupNewCardButton,
     popupUpdateAvatarButtonElement: elementPopupUpdateAvatarButton,
     profileAvatarElement: elementProfileAvatar,
-    introTitleElement: elementIntroTitle,
-    introTextElement: elementIntroText,
 };
 // Объект настроек popup (image)
 export const settingsForCreatePopupImage = {
@@ -49,7 +50,8 @@ export const settingsForCreatePopups = {
     popupUpdateAvatarSelector: '.popup_type_update-avatar',
     popupUpdateAvatarInputSelector: 'popup__input_type_description-url',
     popupImageSelector: '.popup_type_image', // Превью
-    popupDeleteSelector: '.popup_type_delete'
+    popupDeleteSelector: '.popup_type_delete',
+    buttonSubmitSelector: '.popup__submit'
 };
 // Объект настроек для валидации форм
 export const settingsForValidation = {
