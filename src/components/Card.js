@@ -2,7 +2,7 @@ export default class Card { // класс Card, который создаёт к
 
     // конструктор принимает данные карточки и селектор template-элемента
     constructor({
-        data: { likes, _id, name, link, owner, createdAt, personalToken }, // данные карточки (включая информацию по лайкам)
+        data: { likes, _id, name, link, personalID, ownerID }, // данные карточки (включая информацию по лайкам)
         methods: {
             handleCardImageClick, // обработчик просмотра изображения
             handleLikeButtonClick, // обработчик лайка карточки
@@ -17,7 +17,8 @@ export default class Card { // класс Card, который создаёт к
         this._cardsId = _id;
         this._cardsName = name;
         this._cardsLink = link;
-        this._token = personalToken;
+        this._personalID = personalID;
+        this._owenerID = ownerID;
         this._handleCardImageClick = handleCardImageClick; // обработчик просмотра изображения
         this._handleLikeButtonClick = handleLikeButtonClick; // обработчик лайка карточки
         this._handleDeleteButtonClick = handleDeleteButtonClick; // обработчик удаления карточки
@@ -44,9 +45,9 @@ export default class Card { // класс Card, который создаёт к
     }
 
     _addCardActiveListeners() { // добавить обработчики событий (card)
-        this._likeButton.addEventListener('click', this._handleLikeButtonClick); // прикрепить обработчик лайка карточки
-        if (this._cardsId === this._token) {
-            this._deleteButton.addEventListener('click', this._handleDeleteButtonClick(this._newCard)); // прикрепить обработчик удаления карточки
+        this._likeButton.addEventListener('click', this._handleLikeButtonClick(this._cardsId, this._labelLike)); // прикрепить обработчик лайка карточки
+        if (this._owenerID === this._personalID) { // удалить инконку корзины
+            this._deleteButton.addEventListener('click', this._handleDeleteButtonClick(this._newCard, this._cardsId)); // прикрепить обработчик удаления карточки
         } else {
             this._deleteButton.remove(); // удалить корзину
         }
@@ -58,7 +59,13 @@ export default class Card { // класс Card, который создаёт к
         this._cardTitle.textContent = this._cardsName;
         this._cardImage.alt = `Фотография - ${this._cardsName}`;
         this._cardImage.src = this._cardsLink;
-        this._labelLike.textContent = this._cardsLike.length;
+        this._labelLike.textContent = this._cardsLike.length; // отображение количества лайков карточки
+        this._cardsLike.forEach((like) => { // отображение уже поставленных лайков
+            const { _id } = like;
+            if (_id === this._personalID) {
+                this._likeButton.classList.toggle('card__item-like-button_active');
+            }
+        });
         this._addCardActiveListeners();
         return this._newCard;
     }

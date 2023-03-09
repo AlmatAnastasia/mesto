@@ -30,7 +30,7 @@ export const elementsForCreatePopups = {
     popupUpdateAvatarButtonElement: elementPopupUpdateAvatarButton,
     profileAvatarElement: elementProfileAvatar,
     introTitleElement: elementIntroTitle,
-    introTextElement: elementIntroText
+    introTextElement: elementIntroText,
 };
 // Объект настроек popup (image)
 export const settingsForCreatePopupImage = {
@@ -49,6 +49,7 @@ export const settingsForCreatePopups = {
     popupUpdateAvatarSelector: '.popup_type_update-avatar',
     popupUpdateAvatarInputSelector: 'popup__input_type_description-url',
     popupImageSelector: '.popup_type_image', // Превью
+    popupDeleteSelector: '.popup_type_delete'
 };
 // Объект настроек для валидации форм
 export const settingsForValidation = {

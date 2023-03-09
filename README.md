@@ -24,6 +24,7 @@
 <p><a href="https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1">Макет 1</a> - в нем видно видно, как проект должен выглядеть на разрешениях экранов 320 и 1280 пикселей.</p>
 <p><a href="https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1">Макет 2</a> - новая функциональность, попапы.</p>
 <p><a href="https://www.figma.com/file/kRVLKwYG3d1HGLvh7JFWRT/JavaScript.-Sprint-6?node-id=0%3A1">Макет 3</a> - новая функциональность, валидация.</p>
+<p><a href="https://www.figma.com/file/PSdQFRHoxXJFs2FH8IXViF/JavaScript-9-sprint?node-id=0%3A1">Макет 4</a> - новая функциональность, попапы (подтверждение удаления, обновить аватар).</p>
 
 <div id="demo"></div>
 <h2>Демонстрация</h2>
@@ -37,14 +38,26 @@
 <h2>Файловая структура</h2>
 <pre>
 .
+├── src                # HTML, CSS, JS-файлы и изображения<br>
+├── .gitignore         # Файл для игнорирования/предотвращения передачи файлов<br>
+├── README.md          # Файл документации проекта<br>
+├── babel.config.js    # Файл с настройками Babel<br>
+├── package-lock.json  # Файл блокировки, содержащий информацию о зависимостях/пакетах с их точными номерами версий<br>
+├── package.json       # Файл управления версиями, используемый для установки нескольких пакетов в проекте<br>
+├── postcss.config.js  # Файл для настроек PostCSS<br>
+├── webpack.config.js  # Файл конфигурации Webpack
+</pre>
+<h2>Файловая структура директории src</h2>
+<pre>
+.
 ├── blocks          # Файлы стилей блоков<br>
+├── components      # Файлы компонентов<br>
 ├── fonts           # Файлы шрифтов<br>
 ├── images          # Файлы изображений<br>
 ├── pages           # Файлы стилей страниц<br>
-├── scripts         # Файлы скриптов страниц<br>
+├── utils           # Файлы утилитарных модулей (отдельные функции и константы)<br>
 ├── vendor          # Файлы сторонних библиотек<br>
 ├── .nojekyll       # Пустой файл для публикации на GitHub Pages<br>
-├── README.md       # Файл документации проекта<br>
 └── index.html      # Главная страница сервиса
 </pre>
 
@@ -63,7 +76,13 @@
 ⬥ Объектно-ориентированное программирование<br>
 ⬥ Рзбиение на модули<br>
 ⬥ Деструктуризация, слабая связь между классами<br>
-⬥ Явная привязка контента методом bind
+⬥ Явная привязка контента методом bind<br>
+⬥ Сборка проекта (Webpack)<br>
+⬥ Транспиляция (Babel)<br>
+⬥ Минификация CSS (PostCSS)<br>
+⬥ Асинхронность<br>
+⬥ Работа с API (метод fetch, формат JSON, методы HTTP)<br>
+⬥ Методы HTTP (GET, POST, PUT, PATCH, DELETE)
 </p>
 
 <div id="functionality"></div>
@@ -76,6 +95,10 @@
 <img src="./src/images/Demo_form_new-card.png" alt="Демо форма &quot;Новое место&quot;" width="900">
 <p>Форма просмотра фотографий</p>
 <img src="./src/images/Demo_form_image.png" alt="Демо форма &quot;Фотография&quot;" width="900">
+<p>Форма обновления аватара пользователя</p>
+<img src="./src/images/Demo_form_update-avatar.png" alt="Демо форма &quot;Обновить аватар&quot;" width="900">
+<p>Форма подтверждения (удалить фотографию)</p>
+<img src="./src/images/Demo_form_delete.png" alt="Демо форма &quot;Подтвердить&quot;" width="900">
 <p>✶ Добавление карточки</p>
 <img src="./src/images/Demo_addCard_before.png" alt="Добавление карточки &quot;До&quot;" width="900"><br>
 <img src="./src/images/Demo_addCard_after.png" alt="Добавление карточки &quot;После&quot;" width="900">
@@ -93,7 +116,10 @@
 </p>Валидация формы «Новое место»</p>
 <img src="./src/images/Demo_newCardValidation_before.png" alt="Валидация формы &quot;Новое место&quot;" width="900"><br>
 <img src="./src/images/Demo_newCardValidation_after.png" alt="Валидация формы &quot;Новое место&quot;" width="900">
-<p>Три состояния кнопки отправки формы: обычное, при наведении и disabled</p>
+</p>Валидация формы «Обновить аватар»</p>
+<img src="./src/images/Demo_update-avatar_before.png" alt="Валидация формы &quot;Обновить аватар&quot;" width="900"><br>
+<img src="./src/images/Demo_update-avatar_after.png" alt="Валидация формы &quot;Обновить аватар&quot;" width="900">
+<p>Четыре состояния кнопки отправки формы: обычное, при наведении, disabled и ожидания ответа от сервера</p>
 <p>Попап закрывается по в клику любом месте вне этого окна и по нажатию на Esc</p>
 <p>Закрытие попапа кликом на оверлей</p>
 <p>Закрытие попапа нажатием на Esc</p>

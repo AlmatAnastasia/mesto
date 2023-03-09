@@ -2,6 +2,7 @@ import './index.css';
 import Card from '../components/Card.js'
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
+import PopupWithSubmit from '../components/PopupWithSubmit.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import UserInfo from '../components/UserInfo.js';
@@ -37,17 +38,24 @@ const {
     popupUpdateAvatarSelector: popupUpdateAvatarSelector,
     popupUpdateAvatarInputSelector: popupUpdateAvatarInputSelector,
     popupImageSelector: popupImageSelector, // Превью
+    popupDeleteSelector: popupDeleteSelector
 } = selectors;
 
 // Взаимодействие с сервером
-const addProfileInfo = () => { // добавить информацию о пользователе с сервера
-    api
-        .getProfileInfo()
-        .then((res => {
-            const { name, about, avatar } = res;
+const addInfoFromServer = () => {
+    // добавить информацию о пользователе с сервера
+    // загрузить карточки с сервера
+    const promises = [api.getProfileInfo(), api.getInitialCards()]; // массив промисов
+    Promise.all(promises)
+
+        .then((results => {
+            const [info, cards] = results;
+            const { name, about, avatar, _id } = info;
             introTitle.textContent = name;
             introText.textContent = about;
             profileAvatar.src = avatar;
+            api.addPersonalID(_id);
+            instanceSection.renderItems(cards);
         }))
         .catch((error) => { // обработать ошибки
             console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
@@ -55,7 +63,7 @@ const addProfileInfo = () => { // добавить информацию о по�
 }
 
 // Стрелочные функции
-const handleCardImageClick = (card, cardImage, titleSelector) => { // обработчик просмотра изображения
+const handleCardImageClick = (card, cardImage, titleSelector) => { // обработчик просмотра изображения (card)
     return () => {
         const name = card.querySelector(titleSelector).textContent;
         const link = cardImage.src;
@@ -64,21 +72,78 @@ const handleCardImageClick = (card, cardImage, titleSelector) => { // обраб
     };
 };
 
-const handleLikeButtonClick = (evt) => { // обработчик лайка карточки
-    const likeButton = evt.target;
-    likeButton.classList.toggle('card__item-like-button_active'); // лайк карточки
+// Взаимодействие с сервером
+const addNewLike = async (labelLike, id) => { // лайкнуть карточку
+    const likes = await api
+        .updateAddStatusLike(id)
+        .then((res => {
+            const { likes } = res;
+            return likes.length;
+        }))
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        });
+
+    labelLike.textContent = likes;
 };
 
-const handleDeleteButtonClick = (newCard) => { // клик на удаление
+const deleteNewLike = async (labelLike, id) => { // убрать лайк
+    const likes = await api
+        .updateDeleteStatusLike(id)
+        .then((res => {
+            const { likes } = res;
+            return likes.length;
+        }))
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        });
+
+    labelLike.textContent = likes;
+};
+
+// Стрелочные функции
+const handleLikeButtonClick = (id, labelLike) => { // обработчик лайка карточки (card)
+    return (evt) => {
+        const likeButton = evt.target;
+        const likeStatus = likeButton.classList.contains('card__item-like-button_active');
+        (likeStatus === false) ? addNewLike(labelLike, id) : deleteNewLike(labelLike, id);
+        likeButton.classList.toggle('card__item-like-button_active'); // лайк карточки
+    }
+};
+
+// Взаимодействие с сервером
+const deleteOldCard = (card, cardID) => { // удалить карточку
+    api
+        .deleteCard(cardID)
+        .then(() => {
+            instancePopupDelete.close(); // закрыть папап удаления карточки
+            card.remove();
+        })
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        });
+}
+
+// Стрелочные функции
+const handlePopupDeleteSubmit = (card, cardID) => { // обработчик «отправки» формы (delete)
+    return (evt) => {
+        evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
+        deleteOldCard(card, cardID); // удалить карточку
+    }
+};
+
+const handleDeleteButtonClick = (card, cardID) => { // обработчик удаления карточки (card)
     return () => {
-        newCard.remove(); // удалить карточку
+        instancePopupDelete.open(handlePopupDeleteSubmit, card, cardID);
+        instancePopupDelete.setEventListeners();
     };
 };
 
-const createCard = (likes, _id, name, link, owner, createdAt) => { // создать карточку
-    const personalToken = api.getPersonalToken();
+const createCard = (likes, _id, name, link, owner) => { // создать карточку
+    const personalID = api.returnPersonalID();
+    const ownerID = owner._id;
     const instanceCard = new Card({
-        data: { likes, _id, name, link, owner, createdAt, personalToken }, // данные карточки (включая информацию по лайкам)
+        data: { likes, _id, name, link, personalID, ownerID }, // данные карточки (включая информацию по лайкам)
         methods: {
             handleCardImageClick, // обработчик просмотра изображения
             handleLikeButtonClick, // обработчик лайка карточки
@@ -90,45 +155,6 @@ const createCard = (likes, _id, name, link, owner, createdAt) => { // созда
     return cardElement;
 };
 
-// Взаимодействие с сервером
-const addCards = async () => { // загрузить карточки с сервера
-    const items = await api
-        .getInitialCards()
-        .then((res => { return res }))
-        .catch((error) => { // обработать ошибки
-            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
-        });
-
-    const instanceSection = new Section({ // создать экземпляр класса Section
-        items,
-        renderer: (item) => {
-            // логика вставки и логика создания
-            const { likes, _id, name, link, owner, createdAt } = item;
-            const cardElement = createCard(likes, _id, name, link, owner, createdAt); // создать карточку
-            instanceSection.addItem(cardElement); // добавить карточку
-        }
-    }, sectionCardsSelector);
-    instanceSection.renderItems();
-}
-
-const changeProfileInfo = (name, about) => { // изменить собсвенную информацию (данные профиля) на сервере
-    api
-        .editProfileInfo(name, about)
-        .then((res => { return res; }))
-        .catch((error) => { // обработать ошибки
-            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
-        });
-}
-
-const changeProfileAvatar = (avatar) => {  // изменить собсвенную информацию (аватар пользователя)
-    api
-        .editProfileAvatar(avatar)
-        .then((res => { return res; }))
-        .catch((error) => { // обработать ошибки
-            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
-        });
-}
-
 // Стрелочные функции
 const handleOpenButtonPopupEditClick = () => { // обработчик открытия попапа (edit)
     return () => {
@@ -139,15 +165,33 @@ const handleOpenButtonPopupEditClick = () => { // обработчик откр�
     };
 };
 
+// Взаимодействие с сервером
+const changeProfileInfo = (name, about, close, submitButton) => { // изменить собсвенную информацию (данные профиля) на сервере
+    api
+        .editProfileInfo(name, about)
+        .then((res => {
+            const { name, about } = res;
+            instanceUserInfo.setUserInfo(name, about);
+            close();
+        }))
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        })
+        .finally(() => {
+            submitButton.textContent = 'Сохранить';
+        });
+}
+
+// Стрелочные функции
 const handleFormEditSubmit = ({ close, submitHandler }) => { // обработчик «отправки» формы (edit)
     return (evt) => {
         evt.preventDefault(); // отмена стандартной отправки формы (определение собственной логики отправки)
+        const submitButton = evt.target.querySelector('.popup__submit');
+        submitButton.textContent = 'Сохранение...';
         const popupValues = submitHandler();
         const popupEditName = popupValues[popupNameInputSelector];
         const popupEditJob = popupValues[popupEditJobInputSelector];
-        instanceUserInfo.setUserInfo(popupEditName, popupEditJob);
-        changeProfileInfo(popupEditName, popupEditJob);
-        close();
+        changeProfileInfo(popupEditName, popupEditJob, close, submitButton);
     }
 };
 
@@ -160,16 +204,37 @@ const handleOpenButtonPopupNewCardClick = () => { // обработчик отк
     return () => instancePopupWithFormNewCard.open();
 };
 
+// Взаимодействие с сервером
+const addNewCard = (name, link, close, submitButton) => {
+    // добавить новую карточку на сервер
+    // загрузить карточки с сервера
+    api
+        .addCard(name, link)
+        .then((res) => {
+            const { likes, _id, name, link, owner } = res;
+            const cardElement = createCard(likes, _id, name, link, owner); // создать карточку
+            instanceSection.addItemIntoEnd(cardElement); // добавить карточку
+            close();
+        })
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        })
+        .finally(() => {
+            submitButton.textContent = 'Сохранить';
+        });
+}
+
+// Стрелочные функции
 const handleFormNewCardSubmit = ({ close, submitHandler }) => { // обработчик «отправки» формы (new-card)
     return (evt) => {
         evt.preventDefault();
+        const submitButton = evt.target.querySelector('.popup__submit');
+        submitButton.textContent = 'Сохранение...';
         const popupValues = submitHandler();
         const name = popupValues[popupNameInputSelector];
         const link = popupValues[popupNewCardLinkInputSelector];
         // логика вставки и логика создания
-        // const cardElement = createCard(likes, _id, name, link, owner, createdAt); // создать карточку
-        instanceSection.addItem(cardElement); // добавить карточку
-        close();
+        addNewCard(name, link, close, submitButton); // создать карточку
     }
 };
 
@@ -182,13 +247,32 @@ const handleOpenButtonPopupUpdateAvatarClick = () => { // обработчик �
     return () => instancePopupWithFormUpdateAvatar.open();
 };
 
+// Взаимодействие с сервером
+const changeProfileAvatar = (avatar, close, submitButton) => {  // изменить собсвенную информацию (аватар пользователя)
+    api
+        .editProfileAvatar(avatar)
+        .then((res => {
+            const { avatar } = res;
+            profileAvatar.src = avatar;
+            close();
+        }))
+        .catch((error) => { // обработать ошибки
+            console.log(`${error}. Запрос не выполнен!`); // вывести ошибку в консоль
+        })
+        .finally(() => {
+            submitButton.textContent = 'Сохранить';
+        });
+}
+
+// Стрелочные функции
 const handleFormUpdateAvatarSubmit = ({ close, submitHandler }) => { // обработчик «отправки» формы (update-avatar)
     return (evt) => {
         evt.preventDefault();
+        const submitButton = evt.target.querySelector('.popup__submit');
+        submitButton.textContent = 'Сохранение...';
         const popupValues = submitHandler();
-        profileAvatar.src = popupValues[popupUpdateAvatarInputSelector];
-        changeProfileAvatar(popupValues[popupUpdateAvatarInputSelector]);
-        close();
+        const avatar = popupValues[popupUpdateAvatarInputSelector];
+        changeProfileAvatar(avatar, close, submitButton);
     }
 };
 
@@ -235,11 +319,18 @@ const instancePopupWithFormUpdateAvatar = new PopupWithForm(
     popupFormValidators // объект экземпляров класса FormValidator
 ); // создать экземпляр класса PopupWithForm (update-avatar)
 const instancePopupWithImage = new PopupWithImage(popupImageSelector, settingsPopupImage); // создать экземпляр класса PopupWithImage
+const instancePopupDelete = new PopupWithSubmit(popupDeleteSelector); // создать экземпляр класса Popup (popup_delete)
 const instanceUserInfo = new UserInfo({ introTitleSelector, introTextSelector }); // создать экземпляр класса UserInfo
-
+const instanceSection = new Section({ // создать экземпляр класса Section
+    renderer: (item) => {
+        // логика вставки и логика создания
+        const { likes, _id, name, link, owner } = item;
+        const cardElement = createCard(likes, _id, name, link, owner); // создать карточку
+        instanceSection.addItem(cardElement); // добавить карточку
+    }
+}, sectionCardsSelector);
 // Основной код
-addProfileInfo();
-addCards();
+addInfoFromServer();
 addListenersPopupEdit();
 addListenersPopupNewCard();
 addListenersPopupUpdateAvatar();
