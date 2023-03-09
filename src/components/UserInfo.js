@@ -9,12 +9,25 @@ export default class UserInfo { // класс UserInfo, который отве�
 
     // публичные методы
     getUserInfo() { // вернуть объект с данными пользователя
-        const data = { name: this._title.textContent, job: this._text.textContent };
+        const name = this._title.textContent;
+        const job = this._text.textContent;
+        let data = { name: '', job: '' };
+        if ((name !== '') && (job !== '')) {
+            data = { name: name, job: job };
+        }
         return data;
     }
 
     setUserInfo(name, job) { // принять новые данные пользователя и добавить их на страницу
         this._title.textContent = name;
         this._text.textContent = job;
+    }
+
+    addPersonalID(personalID) { // добавить личный id
+        this._personalID = personalID;
+    }
+
+    returnPersonalID() { // вернуть личный id
+        return this._personalID;
     }
 }
